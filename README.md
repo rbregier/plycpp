@@ -10,7 +10,7 @@ If you are looking for a more complete alternative and are not interested by C++
 
 Features
 ------------
-* Easy to install: Add "hdr/plycpp.h" and "src/plycpp.cpp" in your project and you are ready to go (or use CMake if you prefer).
+* Easy to install: Add "hdr/plycpp.h" and "src/plycpp.cpp" to your project and you are ready to go (or use CMake and a Git submodule if you prefer).
 * Load PLY files in ASCII and Binary mode.
 * Export Binary PLY data.
 * Handle arbitrary elements and properties.
