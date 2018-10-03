@@ -123,7 +123,7 @@ namespace plycpp
 		T* ptr()
 		{
 			assert(isOfType<T>());
-			return reinterpret_cast<T*>(&data[0]);
+			return reinterpret_cast<T*>(data.data());
 		}
 
 		const size_t size() const
@@ -297,6 +297,7 @@ namespace plycpp
 
 		if (size != normals.size())
 			throw ParsingException("Inconsistent size");
+
 		
 		plyData.clear();
 		
