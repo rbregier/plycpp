@@ -97,6 +97,12 @@ namespace plycpp
 		DOUBLE
 	};
 	
+	enum FileFormat
+	{
+		ASCII,
+		BINARY
+	};
+
 	DataType parseDataType(const std::string& name);
 	std::string dataTypeToString(const DataType type);
 
@@ -177,7 +183,7 @@ namespace plycpp
 	void load(const std::string& filename, PLYData& data);
 
 	/// Save PLY data
-	void save(const std::string& filename, const PLYData& data);
+	void save(const std::string& filename, const PLYData& data, const FileFormat format = FileFormat::BINARY);
 
 	/// Pack n properties -- each represented by a vector of type T --
 	/// into a multichannel vector (e.g. of type vector<std::array<T, n> >)

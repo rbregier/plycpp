@@ -12,7 +12,7 @@ Features
 ------------
 * Easy to install: Add "hdr/plycpp.h" and "src/plycpp.cpp" to your project and you are ready to go (or use CMake and a Git submodule if you prefer).
 * Load PLY files in ASCII and Binary mode.
-* Export Binary PLY data.
+* Save PLY data in ASCII and Binary mode.
 * Handle arbitrary elements and properties.
 * Safety mechanisms to check data type in Debug mode.
 * ParsingException triggered if anything goes wrong.

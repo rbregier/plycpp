@@ -83,7 +83,6 @@ namespace plycpp
 		{ DOUBLE, "double" },
 	};
 
-
 	DataType parseDataType(const std::string& name)
 	{
 		const auto& it = strToDataType.find(name);
@@ -169,11 +168,36 @@ namespace plycpp
 		}
 	}
 
-	enum FileFormat
+	inline void writeASCIIValue(std::ofstream& fout, unsigned char* const  ptData, const DataType type)
 	{
-		ASCII,
-		BINARY
-	};
+		switch (type)
+		{
+		case CHAR:
+			fout << int(*reinterpret_cast<char*>(ptData));
+			break;
+		case UCHAR:
+			fout << int(*reinterpret_cast<unsigned char*>(ptData));
+			break;
+		case SHORT:
+			fout << *reinterpret_cast<int16_t*>(ptData);
+			break;
+		case USHORT:
+			fout << *reinterpret_cast<uint16_t*>(ptData);
+			break;
+		case INT:
+			fout << *reinterpret_cast<int32_t*>(ptData);
+			break;
+		case UINT:
+			fout << *reinterpret_cast<uint32_t*>(ptData);
+			break;
+		case FLOAT:
+			fout << *reinterpret_cast<float*>(ptData);
+			break;
+		case DOUBLE:
+			fout << *reinterpret_cast<double*>(ptData);
+			break;
+		}
+	}
 
 	template <FileFormat format>
 	void readDataContent(std::ifstream& fin, PLYData& data)
@@ -271,6 +295,14 @@ namespace plycpp
 		}
 	}
 
+	void myGetline(std::ifstream& fin, std::string& line)
+	{
+		std::getline(fin, line);
+		// Files created with Windows have a carriage return
+		if (!line.empty() && line.back() == '\r')
+			line.pop_back();
+	}
+
 	void load(const std::string& filename, PLYData& data)
 	{
 		// Read header and reserve memory
@@ -281,8 +313,11 @@ namespace plycpp
 		std::ifstream fin(filename, std::ios::binary);
 		fin.sync_with_stdio(false);
 
+		if (!fin.is_open())
+			throw ParsingException(std::string("Unable to open ") + filename);
+
 		std::string line;
-		std::getline(fin, line);
+		myGetline(fin, line);
 
 		std::shared_ptr<ElementArray> currentElement = nullptr;
 
@@ -293,7 +328,7 @@ namespace plycpp
 
 		while (line != "end_header")
 		{
-			std::getline(fin, line);
+			myGetline(fin, line);
 			if (fin.fail())
 				throw ParsingException("Header parsing exception");
 
@@ -359,7 +394,7 @@ namespace plycpp
 
 			if (fin.fail())
 			{
-				throw ParsingException("Problem while reading ascii data");
+				throw ParsingException("Issue while parsing ascii data");
 			}
 		}
 		else
@@ -377,7 +412,7 @@ namespace plycpp
 
 			if (fin.fail())
 			{
-				throw ParsingException("Problem while reading binary data");
+				throw ParsingException("Issue while parsing binary data");
 			}
 
 			// Ensure we reached the end of file by trying to read a last char
@@ -391,16 +426,112 @@ namespace plycpp
 	}
 
 
-	void save(const std::string& filename, const PLYData& data)
+	template<FileFormat format> 
+	void writeDataContent(std::ofstream& fout, const PLYData& data)
+	{
+		/// Store a pointer to the current place from which to read next data for each property of each element
+		std::map<std::shared_ptr<PropertyArray>, unsigned char*> readingPlace;
+		for (auto& elementTuple : data)
+		{
+			auto& element = elementTuple.data;
+			for (auto& propertyTuple : element->properties)
+			{
+				auto& prop = propertyTuple.data;
+				readingPlace[prop] = prop->data.data();
+			}
+		}
+
+		//// Iterate over elements array
+		for (auto& elementArrayTuple : data)
+		{
+			auto& elementArray = elementArrayTuple.data;
+			const size_t elementsCount = elementArray->size();
+			// Iterate over elements
+			for (size_t i = 0; i < elementsCount; ++i)
+			{
+				// Iterate over properties of the element
+				for (auto& propertyTuple : elementArray->properties)
+				{
+					auto& prop = propertyTuple.data;
+					// Write data
+					auto& ptData = readingPlace[prop];
+					if (!prop->isList())
+					{
+						// Safety check
+						assert(ptData >= prop->data.data());
+						assert(ptData + prop->stepSize <= prop->data.data() + prop->data.size());
+						if (format == FileFormat::BINARY)
+							fout.write(reinterpret_cast<const char*>(ptData), prop->stepSize);
+						else
+						{
+							writeASCIIValue(fout, ptData, prop->type);
+							fout << " ";
+						}
+						ptData += prop->stepSize;
+					}
+					else
+					{
+						if (format == FileFormat::BINARY)
+						{
+							const unsigned char count = 3;
+							// Write the number of elements
+							fout.write(reinterpret_cast<const char*>(&count), sizeof(unsigned char));
+							// Write data
+							const size_t chunckSize = 3 * prop->stepSize;
+							// Safety check
+							assert(ptData >= prop->data.data());
+							assert(ptData + chunckSize <= prop->data.data() + prop->data.size());
+							fout.write(reinterpret_cast<const char*>(ptData), chunckSize);
+							ptData += chunckSize;
+						}
+						else
+						{
+							fout << "3 ";
+							writeASCIIValue(fout, ptData, prop->type);
+							fout << " ";
+							ptData += prop->stepSize;
+							writeASCIIValue(fout, ptData, prop->type);
+							fout << " ";
+							ptData += prop->stepSize;
+							writeASCIIValue(fout, ptData, prop->type);
+							fout << " ";
+							ptData += prop->stepSize;
+						}
+
+					}
+
+
+				}
+				if (format == FileFormat::ASCII)
+				{
+					fout << "\n";
+				}
+			}
+		}
+	}
+
+	void save(const std::string& filename, const PLYData& data, const FileFormat format)
 	{
 		std::ofstream fout(filename, std::ios::binary);
 
 		// Write header
 		fout << "ply\n";
-		if (isBigEndianArchitecture())
-			fout << "format binary_big_endian 1.0\n";
-		else
-			fout << "format binary_little_endian 1.0\n";
+		switch (format)
+		{
+		case FileFormat::ASCII:
+			fout << "format ascii 1.0\n";
+			break;
+		case FileFormat::BINARY:
+			if (isBigEndianArchitecture())
+				fout << "format binary_big_endian 1.0\n";
+			else
+				fout << "format binary_little_endian 1.0\n";
+			break;
+		default:
+			throw ParsingException("Unknown file format. Should not happen.");
+			break;
+		}
+
 		// Iterate over elements array
 		for (const auto& elementArrayTuple : data)
 		{
@@ -447,66 +578,23 @@ namespace plycpp
 		fout << "end_header" << std::endl;
 
 		// Write data
+		switch (format)
 		{
-			/// Store a pointer to the current place from which to read next data for each property of each element
-			std::map<std::shared_ptr<PropertyArray>, unsigned char*> readingPlace;
-			for (auto& elementTuple : data)
-			{
-				auto& element = elementTuple.data;
-				for (auto& propertyTuple : element->properties)
-				{
-					auto& prop = propertyTuple.data;
-					readingPlace[prop] = prop->data.data();
-				}
-			}
+		case FileFormat::BINARY:
+			writeDataContent<FileFormat::BINARY>(fout, data);
+			break;
+		case FileFormat::ASCII:
+			writeDataContent<FileFormat::ASCII>(fout, data);
+			break;
+		default:
+			throw ParsingException("Unknown file format. Should not happen.");
+			break;
+		}
+		
 
-			//// Iterate over elements array
-			for (auto& elementArrayTuple : data)
-			{
-				auto& elementArray = elementArrayTuple.data;
-				const size_t elementsCount = elementArray->size();
-				// Iterate over elements
-				for (size_t i = 0; i < elementsCount; ++i)
-				{
-					// Iterate over properties of the element
-					for (auto& propertyTuple : elementArray->properties)
-					{
-						auto& prop = propertyTuple.data;
-						// Write data
-						auto& ptData = readingPlace[prop];
-						if (!prop->isList())
-						{
-							// Safety check
-							assert(ptData >= prop->data.data());
-							assert(ptData + prop->stepSize <= prop->data.data() + prop->data.size());
-							fout.write(reinterpret_cast<const char*>(ptData), prop->stepSize);
-							ptData += prop->stepSize;
-						}
-						else
-						{
-							// Write the number of elements
-							const unsigned char count = 3;
-							fout.write(reinterpret_cast<const char*>(&count), sizeof(unsigned char));
-							// Write data
-							const size_t chunckSize = 3 * prop->stepSize;
-							// Safety check
-							assert(ptData >= prop->data.data());
-							assert(ptData + chunckSize <= prop->data.data() + prop->data.size());
-							fout.write(reinterpret_cast<const char*>(ptData), chunckSize);
-							ptData += chunckSize;
-						}
-
-
-					}
-				}
-			}
-
-			if (fout.fail())
-			{
-				throw ParsingException("Problem while writing binary data");
-			}
+		if (fout.fail())
+		{
+			throw ParsingException("Problem while writing binary data");
 		}
 	}
-
-
 }

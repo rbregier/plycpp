@@ -10,7 +10,7 @@ get_filename_component(MODELS_DIRECTORY
 add_library(plycpp src/plycpp.cpp)
 target_include_directories(plycpp PUBLIC ${CMAKE_CURRENT_LIST_DIR}/hdr)
 					   
-add_executable(ply_io_example src/example.cpp)
-target_link_libraries(ply_io_example plycpp)
-target_compile_definitions(ply_io_example PRIVATE MODELS_DIRECTORY="${MODELS_DIRECTORY}")
+add_executable(plycpp_example src/example.cpp)
+target_link_libraries(plycpp_example plycpp)
+target_compile_definitions(plycpp_example PRIVATE MODELS_DIRECTORY="${MODELS_DIRECTORY}")
 

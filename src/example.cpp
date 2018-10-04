@@ -34,7 +34,7 @@ void main()
 		plycpp::PLYData data;
 
 		plycpp::load(std::string(MODELS_DIRECTORY) + "/bunny.ply", data);
-
+		//plycpp::load(std::string(MODELS_DIRECTORY) + "/bunny_ascii.ply", data);
 
 		// Listing PLY content
 		{
@@ -92,6 +92,10 @@ void main()
 		std::cout << "\n";
 
 		// Generic method to pack multiple properties of the same type together
+		if (data["vertex"]->properties["red"]
+			&& data["vertex"]->properties["red"]
+			&& data["vertex"]->properties["blue"]
+			&& data["vertex"]->properties["alpha"])
 		{
 			typedef std::vector<std::array<unsigned char, 4> > RGBACloud;
 			RGBACloud rgbaCloud;
@@ -147,9 +151,17 @@ void main()
 			plycpp::PLYData newPlyData;
 			plycpp::fromPointCloudAndNormals<float, Cloud>(points, normals, newPlyData);
 
-			std::string filename = "point_cloud.ply";
-			plycpp::save(filename, newPlyData);
-			std::cout << "Point cloud exported to " << filename << std::endl;
+			{
+				std::string filename = "point_cloud_ascii.ply";
+				plycpp::save(filename, newPlyData, plycpp::FileFormat::ASCII);
+				std::cout << "Point cloud exported to " << filename << std::endl;
+			}
+
+			{
+				std::string filename = "point_cloud_binary.ply";
+				plycpp::save(filename, newPlyData, plycpp::FileFormat::BINARY);
+				std::cout << "Point cloud exported to " << filename << std::endl;
+			}
 		}
 	}
 	catch (plycpp::ParsingException e)
