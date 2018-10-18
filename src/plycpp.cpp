@@ -203,14 +203,14 @@ namespace plycpp
 	void readDataContent(std::ifstream& fin, PLYData& data)
 	{
 		/// Store a pointer to the current place where to write next data for each property of each element
-		std::map<std::shared_ptr<PropertyArray>, unsigned char*> writingPlace;
+		std::map<PropertyArray*, unsigned char*> writingPlace;
 		for (auto& elementTuple : data)
 		{
 			auto& element = elementTuple.data;
 			for (auto& propertyTuple : element->properties)
 			{
 				auto& prop = propertyTuple.data;
-				writingPlace[prop] = prop->data.data();
+				writingPlace[prop.get()] = prop->data.data();
 			}
 		}
 
@@ -230,7 +230,7 @@ namespace plycpp
 					if (!prop->isList())
 					{
 						// Read data
-						auto& ptData = writingPlace[prop];
+						auto& ptData = writingPlace[prop.get()];
 						// Safety check
 						assert(ptData >= prop->data.data());
 						assert(ptData + prop->stepSize <= prop->data.data() + prop->data.size());
@@ -268,7 +268,7 @@ namespace plycpp
 						}
 
 						// Read data
-						auto& ptData = writingPlace[prop];
+						auto& ptData = writingPlace[prop.get()];
 						const size_t chunkSize = 3 * prop->stepSize;
 
 						// Safety check
@@ -430,14 +430,14 @@ namespace plycpp
 	void writeDataContent(std::ofstream& fout, const PLYData& data)
 	{
 		/// Store a pointer to the current place from which to read next data for each property of each element
-		std::map<std::shared_ptr<PropertyArray>, unsigned char*> readingPlace;
+		std::map<PropertyArray*, unsigned char*> readingPlace;
 		for (auto& elementTuple : data)
 		{
 			auto& element = elementTuple.data;
 			for (auto& propertyTuple : element->properties)
 			{
 				auto& prop = propertyTuple.data;
-				readingPlace[prop] = prop->data.data();
+				readingPlace[prop.get()] = prop->data.data();
 			}
 		}
 
@@ -454,7 +454,7 @@ namespace plycpp
 				{
 					auto& prop = propertyTuple.data;
 					// Write data
-					auto& ptData = readingPlace[prop];
+					auto& ptData = readingPlace[prop.get()];
 					if (!prop->isList())
 					{
 						// Safety check

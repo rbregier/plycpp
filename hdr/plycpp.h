@@ -56,14 +56,18 @@ namespace plycpp
 	/// A list of elements that can be accessed through a given key for convenience.
 	/// Access by key is not meant to be fast, but practical.
 	template<typename Key, typename Data>
-	class IndexedList : public std::list<KeyData<Key, std::shared_ptr<Data> > >
+	class IndexedList
 	{
+	private:
+		typedef KeyData<Key, std::shared_ptr<Data> > MyKeyData;
+		typedef std::list<MyKeyData>  Container;
 	public:
-		typedef KeyData<Key, std::shared_ptr<Data> > KeyData;
+		typedef typename Container::iterator iterator;
+		typedef typename Container::const_iterator const_iterator;
 
 		std::shared_ptr<Data> operator[] (const Key& key)
 		{
-			auto it = std::find_if(begin(), end(), [&key](const KeyData& a){ return a.key == key; });
+			auto it = std::find_if(begin(), end(), [&key](const MyKeyData& a){ return a.key == key; });
 			if (it != end())
 				return it->data;
 			else
@@ -72,7 +76,7 @@ namespace plycpp
 
 		const std::shared_ptr<const Data> operator[] (const Key& key) const
 		{
-			auto it = std::find_if(begin(), end(), [&key](const KeyData& a){ return a.key == key; });
+			auto it = std::find_if(begin(), end(), [&key](const MyKeyData& a){ return a.key == key; });
 			if (it != end())
 				return it->data;
 			else
@@ -81,8 +85,21 @@ namespace plycpp
 
 		void push_back(const Key& key, const std::shared_ptr<Data>& data)
 		{
-			std::list<KeyData>::push_back(KeyData(key, data));
+			list.push_back(MyKeyData(key, data));
 		}
+
+		void clear()
+		{
+			list.clear();
+		}
+
+		iterator begin() { return list.begin(); };
+		const_iterator begin() const { return list.begin(); };
+		iterator end() { return list.end(); };
+		const_iterator end() const { return list.end(); };
+
+	private:
+		Container list;
 	};
 
 	enum DataType 
