@@ -20,10 +20,12 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
+//#include <vld.h>
 #include <plycpp.h>
 #include <filesystem>
 #include <iostream>
 #include <array>
+
 
 void main()
 {
@@ -33,6 +35,7 @@ void main()
 		std::cout << "Loading PLY data..." << std::endl;
 		plycpp::PLYData data;
 
+	
 		plycpp::load(std::string(MODELS_DIRECTORY) + "/bunny.ply", data);
 		//plycpp::load(std::string(MODELS_DIRECTORY) + "/bunny_ascii.ply", data);
 
@@ -47,8 +50,8 @@ void main()
 				{
 					std::cout << "    - " << prop.key
 						<< " -- type: "
-						<< (prop.data->isList() ? "list of " : "")
-						<< plycpp::dataTypeToString(prop.data->type)
+						<< (prop.data->isList ? "list of " : "")
+						<< prop.data->type.name()
 						<< " -- size: " << prop.data->size() << std::endl;
 				}
 			}
@@ -92,10 +95,7 @@ void main()
 		std::cout << "\n";
 
 		// Generic method to pack multiple properties of the same type together
-		if (data["vertex"]->properties["red"]
-			&& data["vertex"]->properties["red"]
-			&& data["vertex"]->properties["blue"]
-			&& data["vertex"]->properties["alpha"])
+		try
 		{
 			typedef std::vector<std::array<unsigned char, 4> > RGBACloud;
 			RGBACloud rgbaCloud;
@@ -111,40 +111,43 @@ void main()
 			for (size_t i = 0; i < 5; ++i)
 			{
 				assert(i < rgbaCloud.size());
-				std::cout << "* " 
-					<< static_cast<unsigned int>(rgbaCloud[i][0]) << " " 
-					<< static_cast<unsigned int>(rgbaCloud[i][1]) << " " 
-					<< static_cast<unsigned int>(rgbaCloud[i][2]) << " " 
+				std::cout << "* "
+					<< static_cast<unsigned int>(rgbaCloud[i][0]) << " "
+					<< static_cast<unsigned int>(rgbaCloud[i][1]) << " "
+					<< static_cast<unsigned int>(rgbaCloud[i][2]) << " "
 					<< static_cast<unsigned int>(rgbaCloud[i][3]) << std::endl;
 			}
 			std::cout << "\n";
 		}
-
-		// Property lists are handled in a similar manner
+		catch (const plycpp::Exception &e)
 		{
-			const auto& facesData = data["face"];
-			if (facesData)
-			{
-				const auto& vertexIndicesData = facesData->properties["vertex_indices"];
-				if (vertexIndicesData && vertexIndicesData->isList())
-				{
-					// Only triplet lists are supported
-					assert(vertexIndicesData->size() % 3 == 0);
-					assert(vertexIndicesData->size() > 3);
-
-					std::cout << "Vertex indices of the first triangle:\n" << "* "
-						<< vertexIndicesData->at<int>(0) << " "
-						<< vertexIndicesData->at<int>(1) << " "
-						<< vertexIndicesData->at<int>(2) << std::endl;
-				}
-				else
-					std::cout << "No valid list of vertex indices." << std::endl;
-			}
-			else
-				std::cout << "No face elements." << std::endl;
-			std::cout << "\n";
+			std::cout << e.what();
 		}
 
+		// Property lists are handled in a similar manner
+		try
+		{
+			const auto& vertexIndicesData = data["face"]->properties["vertex_indices"];
+			if (vertexIndicesData && vertexIndicesData->isList)
+			{
+				// Only triplet lists are supported
+				assert(vertexIndicesData->size() % 3 == 0);
+				assert(vertexIndicesData->size() > 3);
+
+				std::cout << "Vertex indices of the first triangle:\n" << "* "
+					<< vertexIndicesData->at<int>(0) << " "
+					<< vertexIndicesData->at<int>(1) << " "
+					<< vertexIndicesData->at<int>(2) << std::endl;
+			}
+			else
+				std::cout << "No valid list of vertex indices." << std::endl;
+		}
+		catch(const plycpp::Exception)
+		{
+			std::cout << "INvalid or unsupported face elements." << std::endl;
+			
+		}
+		std::cout << "\n";
 		// Export a PLY file
 		{
 			// Back conversion of the point cloud and normal cloud to PLYData
@@ -164,7 +167,7 @@ void main()
 			}
 		}
 	}
-	catch (plycpp::ParsingException e)
+	catch (const plycpp::Exception& e)
 	{
 		std::cout << "An exception happened:\n" << e.what() << std::endl;
 	}

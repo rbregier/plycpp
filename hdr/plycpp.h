@@ -25,17 +25,32 @@
 #include <vector>
 #include <memory>
 #include <string>
-#include <list>
 #include <cassert>
 #include <algorithm>
+#include <typeindex>
 
 
 namespace plycpp
 {
-	class ParsingException : public std::exception
+	extern const std::type_index CHAR;
+	extern const std::type_index UCHAR;
+	extern const std::type_index SHORT;
+	extern const std::type_index USHORT;
+	extern const std::type_index INT;
+	extern const std::type_index UINT;
+	extern const std::type_index FLOAT;
+	extern const std::type_index DOUBLE;
+
+	enum FileFormat
+	{
+		ASCII,
+		BINARY
+	};
+
+	class Exception : public std::exception
 	{
 	public:
-		ParsingException(const std::string& msg)
+		Exception(const std::string& msg)
 			: exception(msg.c_str())
 		{}
 	};
@@ -60,7 +75,7 @@ namespace plycpp
 	{
 	private:
 		typedef KeyData<Key, std::shared_ptr<Data> > MyKeyData;
-		typedef std::list<MyKeyData>  Container;
+		typedef std::vector<MyKeyData>  Container;
 	public:
 		typedef typename Container::iterator iterator;
 		typedef typename Container::const_iterator const_iterator;
@@ -71,7 +86,7 @@ namespace plycpp
 			if (it != end())
 				return it->data;
 			else
-				return nullptr;
+				throw Exception("Invalid key.");
 		}
 
 		const std::shared_ptr<const Data> operator[] (const Key& key) const
@@ -80,59 +95,43 @@ namespace plycpp
 			if (it != end())
 				return it->data;
 			else
-				return nullptr;
+				throw Exception("Invalid key.");
 		}
 
 		void push_back(const Key& key, const std::shared_ptr<Data>& data)
 		{
-			list.push_back(MyKeyData(key, data));
+			container.push_back(MyKeyData(key, data));
 		}
 
 		void clear()
 		{
-			list.clear();
+			container.clear();
 		}
 
-		iterator begin() { return list.begin(); };
-		const_iterator begin() const { return list.begin(); };
-		iterator end() { return list.end(); };
-		const_iterator end() const { return list.end(); };
+		iterator begin() { return container.begin(); };
+		const_iterator begin() const { return container.begin(); };
+		iterator end() { return container.end(); };
+		const_iterator end() const { return container.end(); };
 
 	private:
-		Container list;
+		Container container;
 	};
 
-	enum DataType 
-	{
-		CHAR,
-		UCHAR,
-		SHORT,
-		USHORT,
-		INT,
-		UINT,
-		FLOAT,
-		DOUBLE
-	};
-	
-	enum FileFormat
-	{
-		ASCII,
-		BINARY
-	};
-
-	DataType parseDataType(const std::string& name);
-	std::string dataTypeToString(const DataType type);
+	class PropertyArray;
+	class ElementArray;
+	typedef std::shared_ptr<const PropertyArray> PropertyArrayConstPtr;
+	typedef std::shared_ptr<PropertyArray> PropertyArrayPtr;
+	typedef IndexedList<std::string, ElementArray > PLYData;
 
 	class PropertyArray
 	{
 	public:
-		PropertyArray(const DataType type, const size_t size, const bool isList = false);
+		PropertyArray(const std::type_index type, const size_t size, const bool isList = false);
 
-		// Check if the type is the good one
 		template<typename T>
 		bool isOfType() const
 		{
-			return (parseDataType(typeid(T).name()) == type);
+			return type == std::type_index(typeid(T));
 		}
 
 		template<typename T>
@@ -159,19 +158,22 @@ namespace plycpp
 		const T& at(const size_t i) const
 		{
 			assert(isOfType<T>());
-			assert(i * stepSize < data.size());
+			assert((i+1) * stepSize <= data.size());
 			return  *reinterpret_cast<const T*>(&data[i * stepSize]);
 		}
 
-		bool isList() const
+		template<typename T>
+		T& at(const size_t i)
 		{
-			return isList_;
+			assert(isOfType<T>());
+			assert((i + 1) * stepSize <= data.size());
+			return  *reinterpret_cast<T*>(&data[i * stepSize]);
 		}
 
 		std::vector<unsigned char> data;
-		DataType type;
-		unsigned int stepSize;
-		bool isList_ = false;
+		const std::type_index type;
+		const unsigned int stepSize;
+		const bool isList = false;
 	};
 
 	class ElementArray
@@ -191,11 +193,6 @@ namespace plycpp
 		size_t size_;
 	};
 
-	typedef std::shared_ptr<const PropertyArray> PropertyArrayConstPtr;
-	typedef std::shared_ptr<PropertyArray> PropertyArrayPtr;
-	typedef IndexedList<std::string, ElementArray > PLYData;
-
-
 	/// Load PLY data
 	void load(const std::string& filename, PLYData& data);
 
@@ -210,7 +207,7 @@ namespace plycpp
 		output.clear();
 
 		if (properties.empty() || !properties.front())
-			throw ParsingException("Missing properties");
+			throw Exception("Missing properties");
 
 		const size_t size = properties.front()->size();
 		const size_t nbProperties = properties.size();
@@ -220,9 +217,9 @@ namespace plycpp
 		for (auto& prop : properties)
 		{
 			// Check type consistency
-			if (!prop || !prop->isOfType<T>())
+			if (!prop || !prop->isOfType<T>() || prop->size() != size)
 			{
-				throw ParsingException(std::string("Missing properties or type inconsistency. I was expecting data of type ") + typeid(T).name());
+				throw Exception(std::string("Missing properties or type inconsistency. I was expecting data of type ") + typeid(T).name());
 			}
 			ptsData.push_back(prop->ptr<T>());
 		}
@@ -250,7 +247,7 @@ namespace plycpp
 		std::vector<T*> ptsData;
 		for (auto& prop : properties)
 		{
-			prop.reset(new PropertyArray(parseDataType(typeid(T).name()), size));
+			prop.reset(new PropertyArray(std::type_index(typeid(T)), size));
 			ptsData.push_back(prop->ptr<T>());
 		}
 
@@ -270,10 +267,6 @@ namespace plycpp
 	{
 		cloud.clear();
 		auto plyVertex = plyData["vertex"];
-		if (!plyVertex)
-		{
-			throw ParsingException("No vertex elements.");
-		}
 		if (plyVertex->size() == 0)
 			return;
 		std::vector<std::shared_ptr<const PropertyArray> > properties { plyVertex->properties["x"], plyVertex->properties["y"], plyVertex->properties["z"] };
@@ -285,10 +278,6 @@ namespace plycpp
 	{
 		cloud.clear();
 		auto plyVertex = plyData["vertex"];
-		if (!plyVertex)
-		{
-			throw ParsingException("No vertex elements.");
-		}
 		if (plyVertex->size() == 0)
 			return;
 		std::vector<std::shared_ptr<const PropertyArray> > properties{ plyVertex->properties["nx"], plyVertex->properties["ny"], plyVertex->properties["nz"] };
@@ -319,7 +308,7 @@ namespace plycpp
 		const size_t size = points.size();
 
 		if (size != normals.size())
-			throw ParsingException("Inconsistent size");
+			throw Exception("Inconsistent size");
 
 		
 		plyData.clear();

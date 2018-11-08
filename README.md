@@ -28,3 +28,8 @@ Current limitations
 -------
 * Property lists have to contain exactly 3 values per element, and be indexed by a "uchar" type. For typical use, this means that __only triangular meshes are supported__.
 * Decoding of binary files encoded with an endianness different of the one of the current architecture is not yet implemented.
+
+Compilers supported
+---------
+This code should be supported by any C++11 compliant compiler.
+Tested with Visual Studio 2013 and Visual Studio 2017.

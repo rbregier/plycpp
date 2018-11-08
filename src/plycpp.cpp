@@ -24,47 +24,65 @@
 
 #include <fstream>
 #include <sstream>
-#include <map>
+#include <unordered_map>
 #include <iostream>
 #include <cassert>
 #include <algorithm>
+#include <typeindex>
 
 namespace plycpp
 {
+	const std::type_index CHAR = std::type_index(typeid(int8_t));
+	const std::type_index UCHAR = std::type_index(typeid(uint8_t));
+	const std::type_index SHORT = std::type_index(typeid(int16_t));
+	const std::type_index USHORT = std::type_index(typeid(uint16_t));
+	const std::type_index INT = std::type_index(typeid(int32_t));
+	const std::type_index UINT = std::type_index(typeid(uint32_t));
+	const std::type_index FLOAT = std::type_index(typeid(float));
+	const std::type_index DOUBLE = std::type_index(typeid(double));
+
 	bool isBigEndianArchitecture()
 	{
-		union {
+		/*union {
 			uint32_t i;
 			char c[4];
 		} myunion = { 0x01020304 };
-
 		return myunion.c[0] == 1;
+		*/
+		const uint32_t i = 0x01020304;
+		return reinterpret_cast<const uint8_t*>(&i)[0] == 1;
 	}
 
+	
 
-	const std::map<DataType, int> dataTypeByteSize{
-		{ CHAR, 1 },
-		{ UCHAR, 1 },
-		{ SHORT, 2 },
-		{ USHORT, 2 },
-		{ INT, 4 },
-		{ UINT, 4 },
-		{ FLOAT, 4 },
-		{ DOUBLE, 8 }
+	const std::unordered_map<std::type_index, int> dataTypeByteSize{
+		{ CHAR, sizeof(char) },
+		{ UCHAR, sizeof(unsigned char) },
+		{ SHORT, sizeof(int16_t) },
+		{ USHORT, sizeof(uint16_t) },
+		{ INT, sizeof(int32_t) },
+		{ UINT, sizeof(uint32_t) },
+		{ FLOAT, sizeof(float) },
+		{ DOUBLE, sizeof(double) }
 	};
 
+	static_assert(sizeof(char) == 1, "Inconsistent type size");
+	static_assert(sizeof(unsigned char) == 1, "Inconsistent type size");
+	static_assert(sizeof(int16_t) == 2, "Inconsistent type size");
+	static_assert(sizeof(uint16_t) == 2, "Inconsistent type size");
+	static_assert(sizeof(int32_t) == 4, "Inconsistent type size");
+	static_assert(sizeof(uint32_t) == 4, "Inconsistent type size");
+	static_assert(sizeof(float) == 4, "Inconsistent type size");
+	static_assert(sizeof(double) == 8, "Inconsistent type size");
 
-	const std::map<std::string, DataType> strToDataType{
+	const std::unordered_map<std::string, std::type_index> strToDataType{
 		{ "char", CHAR },
 		{ "uchar", UCHAR },
-		{ "unsigned char", UCHAR },
 		{ "short", SHORT },
 		{ "ushort", USHORT },
-		{ "unsigned short", USHORT },
 		{ "int", INT },
 		{ "int32", INT },
 		{ "uint", UINT },
-		{ "unsigned int", UINT },
 		{ "uint32", UINT },
 		{ "float", FLOAT },
 		{ "float32", FLOAT },
@@ -72,7 +90,7 @@ namespace plycpp
 		{ "float64", DOUBLE }
 	};
 
-	const std::map<DataType, std::string> dataTypeToStr{
+	const std::unordered_map<std::type_index, std::string> dataTypeToStr{
 		{ CHAR, "char" },
 		{ UCHAR, "uchar" },
 		{ SHORT, "short" },
@@ -83,7 +101,7 @@ namespace plycpp
 		{ DOUBLE, "double" },
 	};
 
-	DataType parseDataType(const std::string& name)
+	std::type_index parseDataType(const std::string& name)
 	{
 		const auto& it = strToDataType.find(name);
 		if (it != strToDataType.end())
@@ -91,20 +109,32 @@ namespace plycpp
 			return it->second;
 		}
 		else
-			throw ParsingException(std::string("Unkown data type:" + name));
+			throw Exception(std::string("Unkown data type:" + name));
 	}
 
-	std::string dataTypeToString(const DataType type)
+	std::string dataTypeToString(const std::type_index& type)
 	{
-		return (dataTypeToStr.find(type))->second;
+		auto it = dataTypeToStr.find(type);
+		if (it == dataTypeToStr.end())
+			throw plycpp::Exception("Invalid data type");
+		return it->second;
 	}
 
-	PropertyArray::PropertyArray(const DataType type, const size_t size, const bool isList)
+	size_t dataTypeToStepSize(const std::type_index& type)
 	{
-		this->type = type;
-		this->stepSize = (dataTypeByteSize.find(type))->second;
+		auto it = dataTypeByteSize.find(type);
+		if (it == dataTypeByteSize.end())
+			throw plycpp::Exception("Invalid data type");
+		return it->second;
+	}
+
+
+	PropertyArray::PropertyArray(const std::type_index type, const size_t size, const bool isList)
+		: type(type),	
+		isList(isList),
+		stepSize(dataTypeToStepSize(type))
+	{
 		this->data.resize(size * this->stepSize);
-		this->isList_ = isList;
 	}
 
 
@@ -129,81 +159,95 @@ namespace plycpp
 		size_t val;
 		ss >> val;
 		if (ss.fail())
-			throw ParsingException("Invalid unsigned integer");
+			throw Exception("Invalid unsigned integer");
 		return val;
 	}
 
 
-	inline void readASCIIValue(std::ifstream& fin, unsigned char* const  ptData, const DataType type)
+	inline void readASCIIValue(std::ifstream& fin, unsigned char* const  ptData, const std::type_index& type)
 	{
 		int temp;
-		switch (type)
+		if (type == CHAR)
 		{
-		case CHAR:
 			fin >> temp;
-			*reinterpret_cast<char*>(ptData) = static_cast<char>(temp);
-			break;
-		case UCHAR:
-			fin >> temp;
-			*reinterpret_cast<unsigned char*>(ptData) = static_cast<unsigned char>(temp);
-			break;
-		case SHORT:
-			fin >> *reinterpret_cast<int16_t*>(ptData);
-			break;
-		case USHORT:
-			fin >> *reinterpret_cast<uint16_t*>(ptData);
-			break;
-		case INT:
-			fin >> *reinterpret_cast<int32_t*>(ptData);
-			break;
-		case UINT:
-			fin >> *reinterpret_cast<uint32_t*>(ptData);
-			break;
-		case FLOAT:
-			fin >> *reinterpret_cast<float*>(ptData);
-			break;
-		case DOUBLE:
-			fin >> *reinterpret_cast<double*>(ptData);
-			break;
+			*reinterpret_cast<int8_t*>(ptData) = static_cast<int8_t>(temp);
 		}
+		else if (type == UCHAR)
+		{
+			fin >> temp;
+			*reinterpret_cast<uint8_t*>(ptData) = static_cast<uint8_t>(temp);
+		}
+		else if (type == SHORT)
+		{
+			fin >> *reinterpret_cast<int16_t*>(ptData);
+		}
+		else if (type == USHORT)
+		{
+			fin >> *reinterpret_cast<uint16_t*>(ptData);
+		}
+		else if (type == INT)
+		{
+			fin >> *reinterpret_cast<int32_t*>(ptData);
+		}
+		else if (type == UINT)
+		{
+			fin >> *reinterpret_cast<uint32_t*>(ptData);
+		}
+		else if (type == FLOAT)
+		{
+			fin >> *reinterpret_cast<float*>(ptData);
+		}
+		else if (type == DOUBLE)
+		{
+			fin >> *reinterpret_cast<double*>(ptData);
+		}
+		else
+			throw Exception("Should not happen.");
 	}
 
-	inline void writeASCIIValue(std::ofstream& fout, unsigned char* const  ptData, const DataType type)
+	inline void writeASCIIValue(std::ofstream& fout, unsigned char* const  ptData, const std::type_index type)
 	{
-		switch (type)
+		if (type == CHAR)
 		{
-		case CHAR:
-			fout << int(*reinterpret_cast<char*>(ptData));
-			break;
-		case UCHAR:
-			fout << int(*reinterpret_cast<unsigned char*>(ptData));
-			break;
-		case SHORT:
-			fout << *reinterpret_cast<int16_t*>(ptData);
-			break;
-		case USHORT:
-			fout << *reinterpret_cast<uint16_t*>(ptData);
-			break;
-		case INT:
-			fout << *reinterpret_cast<int32_t*>(ptData);
-			break;
-		case UINT:
-			fout << *reinterpret_cast<uint32_t*>(ptData);
-			break;
-		case FLOAT:
-			fout << *reinterpret_cast<float*>(ptData);
-			break;
-		case DOUBLE:
-			fout << *reinterpret_cast<double*>(ptData);
-			break;
+			fout << int(*reinterpret_cast<int8_t*>(ptData));
 		}
+		else if (type == UCHAR)
+		{
+			fout << int(*reinterpret_cast<uint8_t*>(ptData));
+		}
+		else if (type == SHORT)
+		{
+			fout << *reinterpret_cast<int16_t*>(ptData);
+		}
+		else if (type == USHORT)
+		{
+			fout << *reinterpret_cast<uint16_t*>(ptData);
+		}
+		else if (type == INT)
+		{
+			fout << *reinterpret_cast<int32_t*>(ptData);
+		}
+		else if (type == UINT)
+		{
+			fout << *reinterpret_cast<uint32_t*>(ptData);
+		}
+		else if (type == FLOAT)
+		{
+			fout << *reinterpret_cast<float*>(ptData);
+		}
+		else if (type == DOUBLE)
+		{
+			fout << *reinterpret_cast<double*>(ptData);
+		}
+		else
+			throw Exception("Should not happen");
 	}
 
 	template <FileFormat format>
 	void readDataContent(std::ifstream& fin, PLYData& data)
 	{
 		/// Store a pointer to the current place where to write next data for each property of each element
-		std::map<PropertyArray*, unsigned char*> writingPlace;
+		std::unordered_map<PropertyArray*, unsigned char*> writingPlace;
 		for (auto& elementTuple : data)
 		{
 			auto& element = elementTuple.data;
@@ -227,7 +271,7 @@ namespace plycpp
 				{
 					auto& prop = propertyTuple.data;
 
-					if (!prop->isList())
+					if (!prop->isList)
 					{
 						// Read data
 						auto& ptData = writingPlace[prop.get()];
@@ -250,7 +294,7 @@ namespace plycpp
 					else
 					{
 						// Read count
-						unsigned char count;
+						uint8_t count;
 
 						if (format == ASCII)
 						{
@@ -260,11 +304,11 @@ namespace plycpp
 						}
 						else
 						{
-							fin.read(reinterpret_cast<char*>(&count), sizeof(unsigned char));
+							fin.read(reinterpret_cast<char*>(&count), sizeof(count));
 						}
 						if (fin.fail() || count != 3)
 						{
-							throw ParsingException("Only lists of 3 values are supported");
+							throw Exception("Only lists of 3 values are supported");
 						}
 
 						// Read data
@@ -311,10 +355,10 @@ namespace plycpp
 		std::string version;
 
 		std::ifstream fin(filename, std::ios::binary);
-		fin.sync_with_stdio(false);
+		//fin.sync_with_stdio(false);
 
 		if (!fin.is_open())
-			throw ParsingException(std::string("Unable to open ") + filename);
+			throw Exception(std::string("Unable to open ") + filename);
 
 		std::string line;
 		myGetline(fin, line);
@@ -323,14 +367,14 @@ namespace plycpp
 
 		if (line != "ply")
 		{
-			throw ParsingException("Missing magic number ""ply""");
+			throw Exception("Missing magic number ""ply""");
 		}
 
 		while (line != "end_header")
 		{
 			myGetline(fin, line);
 			if (fin.fail())
-				throw ParsingException("Header parsing exception");
+				throw Exception("Header parsing exception");
 
 			std::vector<std::string> lineContent;
 			splitString(line, lineContent);
@@ -353,10 +397,10 @@ namespace plycpp
 			else if (lineContent.size() == 3 && lineContent[0] == "property")
 			{
 				if (!currentElement)
-					throw ParsingException("Header issue!");
+					throw Exception("Header issue!");
 
 				// New property
-				const DataType dataType = parseDataType(lineContent[1]);
+				const std::type_index dataType = parseDataType(lineContent[1]);
 				const std::string& name = lineContent[2];
 
 				std::shared_ptr<PropertyArray> newProperty(new PropertyArray(dataType, currentElement->size()));
@@ -365,14 +409,14 @@ namespace plycpp
 			else if (lineContent.size() == 5 && lineContent[0] == "property" && lineContent[1] == "list")
 			{
 				if (!currentElement)
-					throw ParsingException("Header issue!");
+					throw Exception("Header issue!");
 
-				const DataType indexCountType = parseDataType(lineContent[2]);
-				const DataType dataType = parseDataType(lineContent[3]);
+				const std::type_index indexCountType = parseDataType(lineContent[2]);
+				const std::type_index dataType = parseDataType(lineContent[3]);
 				const std::string& name = lineContent[4];
 
 				if (indexCountType != UCHAR)
-					throw ParsingException("Only uchar is supported as counting type for lists");
+					throw Exception("Only uchar is supported as counting type for lists");
 
 				std::shared_ptr<PropertyArray> newProperty(new PropertyArray(dataType, 3 * currentElement->size(), true));
 				currentElement->properties.push_back(name, newProperty);
@@ -382,7 +426,7 @@ namespace plycpp
 
 		if (fin.fail())
 		{
-			throw ParsingException("Issue while parsing header");
+			throw Exception("Issue while parsing header");
 		}
 
 
@@ -394,25 +438,25 @@ namespace plycpp
 
 			if (fin.fail())
 			{
-				throw ParsingException("Issue while parsing ascii data");
+				throw Exception("Issue while parsing ascii data");
 			}
 		}
 		else
 		{
 			const bool isBigEndianArchitecture_ = isBigEndianArchitecture();
 			if (format != "binary_little_endian" && format != "binary_big_endian")
-				throw ParsingException("Unknown binary format");
+				throw Exception("Unknown binary format");
 
 
 			if ((isBigEndianArchitecture_ && format != "binary_big_endian")
 				|| (!isBigEndianArchitecture_ && format != "binary_little_endian"))
-				throw ParsingException("Endianness conversion is not supported yet");
+				throw Exception("Endianness conversion is not supported yet");
 			
 			readDataContent<FileFormat::BINARY>(fin, data);
 
 			if (fin.fail())
 			{
-				throw ParsingException("Issue while parsing binary data");
+				throw Exception("Issue while parsing binary data");
 			}
 
 			// Ensure we reached the end of file by trying to read a last char
@@ -420,7 +464,7 @@ namespace plycpp
 			fin.read(&useless, 1);
 			if (!fin.eof())
 			{
-				throw ParsingException("End of file not reached at the end of parsing.");
+				throw Exception("End of file not reached at the end of parsing.");
 			}
 		}
 	}
@@ -430,7 +474,7 @@ namespace plycpp
 	void writeDataContent(std::ofstream& fout, const PLYData& data)
 	{
 		/// Store a pointer to the current place from which to read next data for each property of each element
-		std::map<PropertyArray*, unsigned char*> readingPlace;
+		std::unordered_map<PropertyArray*, unsigned char*> readingPlace;
 		for (auto& elementTuple : data)
 		{
 			auto& element = elementTuple.data;
@@ -455,7 +499,7 @@ namespace plycpp
 					auto& prop = propertyTuple.data;
 					// Write data
 					auto& ptData = readingPlace[prop.get()];
-					if (!prop->isList())
+					if (!prop->isList)
 					{
 						// Safety check
 						assert(ptData >= prop->data.data());
@@ -528,7 +572,7 @@ namespace plycpp
 				fout << "format binary_little_endian 1.0\n";
 			break;
 		default:
-			throw ParsingException("Unknown file format. Should not happen.");
+			throw Exception("Unknown file format. Should not happen.");
 			break;
 		}
 
@@ -547,18 +591,18 @@ namespace plycpp
 				auto& prop = propertyTuple.data;
 
 				if (!prop)
-					throw ParsingException("Null property " + elementArrayName + " -- " + propName);
+					throw Exception("Null property " + elementArrayName + " -- " + propName);
 
 				// String name of the property type
 				const auto& itTypeName = dataTypeToStr.find(prop->type);
 				if (itTypeName == dataTypeToStr.end())
-					throw ParsingException("Should not happen");
+					throw Exception("Should not happen");
 
-				if (!prop->isList())
+				if (!prop->isList)
 				{
 					if (prop->data.size() != elementsCount * prop->stepSize)
 					{
-						throw ParsingException("Inconsistent size for " + elementArrayName + " -- " + propName);
+						throw Exception("Inconsistent size for " + elementArrayName + " -- " + propName);
 					}
 
 					fout << "property " << itTypeName->second << " " << propName << std::endl;
@@ -567,7 +611,7 @@ namespace plycpp
 				{
 					if (prop->data.size() != 3 * elementsCount * prop->stepSize)
 					{
-						throw ParsingException("Inconsistent size for list " + elementArrayName + " -- " + propName);
+						throw Exception("Inconsistent size for list " + elementArrayName + " -- " + propName);
 					}
 
 					fout << "property list uchar " << itTypeName->second << " " << propName << std::endl;
@@ -587,14 +631,14 @@ namespace plycpp
 			writeDataContent<FileFormat::ASCII>(fout, data);
 			break;
 		default:
-			throw ParsingException("Unknown file format. Should not happen.");
+			throw Exception("Unknown file format. Should not happen.");
 			break;
 		}
 		
 
 		if (fout.fail())
 		{
-			throw ParsingException("Problem while writing binary data");
+			throw Exception("Problem while writing binary data");
 		}
 	}
 }

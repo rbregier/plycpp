@@ -14,3 +14,6 @@ add_executable(plycpp_example src/example.cpp)
 target_link_libraries(plycpp_example plycpp)
 target_compile_definitions(plycpp_example PRIVATE MODELS_DIRECTORY="${MODELS_DIRECTORY}")
 
+
+add_executable(plycpp_debug_test plycpp_debug_test.cpp)
+target_link_libraries(plycpp_debug_test plycpp)
