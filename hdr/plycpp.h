@@ -98,6 +98,15 @@ namespace plycpp
 				throw Exception("Invalid key.");
 		}
 
+		bool has_key(const Key &key)
+		{
+			auto it = std::find_if(begin(), end(), [&key](const MyKeyData &a) { return a.key == key; });
+			if (it != end())
+				return true;
+			else
+				return false;
+		}
+
 		void push_back(const Key& key, const std::shared_ptr<Data>& data)
 		{
 			container.push_back(MyKeyData(key, data));
