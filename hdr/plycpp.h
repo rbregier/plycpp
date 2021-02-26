@@ -1,17 +1,17 @@
 // MIT License
-// 
-// Copyright(c) 2018 Romain Brégier
-// 
+//
+// Copyright(c) 2021 Romain BrÃ©gier
+//
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files(the "Software"), to deal
 // in the Software without restriction, including without limitation the rights
 // to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
 // copies of the Software, and to permit persons to whom the Software is
 // furnished to do so, subject to the following conditions :
-// 
+//
 // The above copyright notice and this permission notice shall be included in all
 // copies or substantial portions of the Software.
-// 
+//
 // THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 // IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
 // FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.IN NO EVENT SHALL THE
@@ -98,6 +98,15 @@ namespace plycpp
 				throw Exception("Invalid key.");
 		}
 
+		bool has_key(const Key &key)
+		{
+			auto it = std::find_if(begin(), end(), [&key](const MyKeyData &a) { return a.key == key; });
+			if (it != end())
+				return true;
+			else
+				return false;
+		}
+
 		void push_back(const Key& key, const std::shared_ptr<Data>& data)
 		{
 			container.push_back(MyKeyData(key, data));
@@ -182,7 +191,7 @@ namespace plycpp
 		ElementArray(const size_t size)
 			: size_(size)
 		{}
-		
+
 		IndexedList<std::string, PropertyArray > properties;
 
 		size_t size() const
@@ -211,7 +220,7 @@ namespace plycpp
 
 		const size_t size = properties.front()->size();
 		const size_t nbProperties = properties.size();
-		
+
 		// Pointers to actual data
 		std::vector<const T*> ptsData;
 		for (auto& prop : properties)
@@ -310,9 +319,9 @@ namespace plycpp
 		if (size != normals.size())
 			throw Exception("Inconsistent size");
 
-		
+
 		plyData.clear();
-		
+
 		std::vector<std::shared_ptr<PropertyArray> > positionProperties(3);
 		unpackProperties<T, Cloud>(points, positionProperties);
 

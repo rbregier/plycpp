@@ -1,17 +1,17 @@
 // MIT License
-// 
-// Copyright(c) 2018 Romain Brégier
-// 
+//
+// Copyright(c) 2021 Romain BrÃ©gier
+//
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files(the "Software"), to deal
 // in the Software without restriction, including without limitation the rights
 // to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
 // copies of the Software, and to permit persons to whom the Software is
 // furnished to do so, subject to the following conditions :
-// 
+//
 // The above copyright notice and this permission notice shall be included in all
 // copies or substantial portions of the Software.
-// 
+//
 // THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 // IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
 // FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.IN NO EVENT SHALL THE
@@ -53,7 +53,7 @@ namespace plycpp
 		return reinterpret_cast<const uint8_t*>(&i)[0] == 1;
 	}
 
-	
+
 
 	const std::unordered_map<std::type_index, int> dataTypeByteSize{
 		{ CHAR, sizeof(char) },
@@ -130,7 +130,7 @@ namespace plycpp
 
 
 	PropertyArray::PropertyArray(const std::type_index type, const size_t size, const bool isList)
-		: type(type),	
+		: type(type),
 		isList(isList),
 		stepSize(dataTypeToStepSize(type))
 	{
@@ -451,7 +451,7 @@ namespace plycpp
 			if ((isBigEndianArchitecture_ && format != "binary_big_endian")
 				|| (!isBigEndianArchitecture_ && format != "binary_little_endian"))
 				throw Exception("Endianness conversion is not supported yet");
-			
+
 			readDataContent<FileFormat::BINARY>(fin, data);
 
 			if (fin.fail())
@@ -470,7 +470,7 @@ namespace plycpp
 	}
 
 
-	template<FileFormat format> 
+	template<FileFormat format>
 	void writeDataContent(std::ofstream& fout, const PLYData& data)
 	{
 		/// Store a pointer to the current place from which to read next data for each property of each element
@@ -634,7 +634,7 @@ namespace plycpp
 			throw Exception("Unknown file format. Should not happen.");
 			break;
 		}
-		
+
 
 		if (fout.fail())
 		{
