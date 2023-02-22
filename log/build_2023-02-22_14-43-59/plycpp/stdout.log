@@ -1,0 +1,61 @@
+-- The C compiler identification is GNU 9.4.0
+-- The CXX compiler identification is GNU 9.4.0
+-- Check for working C compiler: /usr/bin/cc
+-- Check for working C compiler: /usr/bin/cc -- works
+-- Detecting C compiler ABI info
+-- Detecting C compiler ABI info - done
+-- Detecting C compile features
+-- Detecting C compile features - done
+-- Check for working CXX compiler: /usr/bin/c++
+-- Check for working CXX compiler: /usr/bin/c++ -- works
+-- Detecting CXX compiler ABI info
+-- Detecting CXX compiler ABI info - done
+-- Detecting CXX compile features
+-- Detecting CXX compile features - done
+-- Found ament_cmake: 1.1.6 (/opt/ros/galactic/share/ament_cmake/cmake)
+-- Found PythonInterp: /usr/bin/python3 (found suitable version "3.8.10", minimum required is "3") 
+-- Using PYTHON_EXECUTABLE: /usr/bin/python3
+-- Found ament_lint_auto: 0.10.7 (/opt/ros/galactic/share/ament_lint_auto/cmake)
+-- Added test 'copyright' to check source files copyright and LICENSE
+-- Added test 'cppcheck' to perform static code analysis on C / C++ code
+-- Configured cppcheck include dirs: /home/Jad/Desktop/plycpp/plycpp_repo/plycpp/src/plycpp/PUBLIC;$<BUILD_INTERFACE:/home/Jad/Desktop/plycpp/plycpp_repo/plycpp/src/plycpp/include>;/home/Jad/Desktop/plycpp/plycpp_repo/plycpp/src/plycpp/include
+-- Configured cppcheck exclude dirs and/or files: 
+-- Added test 'cpplint' to check C / C++ code against the Google style
+-- Configured cpplint exclude dirs and/or files: 
+-- Added test 'lint_cmake' to check CMake code style
+-- Added test 'uncrustify' to check C / C++ code style
+-- Configured uncrustify additional arguments: 
+-- Added test 'xmllint' to check XML markup files
+-- Configuring done
+-- Generating done
+-- Build files have been written to: /home/Jad/Desktop/plycpp/plycpp_repo/plycpp/build/plycpp
+[35m[1mScanning dependencies of target plycpp[0m
+[ 25%] [32mBuilding CXX object CMakeFiles/plycpp.dir/src/plycpp.cpp.o[0m
+[ 50%] [32m[1mLinking CXX shared library libplycpp.so[0m
+[ 50%] Built target plycpp
+[35m[1mScanning dependencies of target plycpp_example[0m
+[ 75%] [32mBuilding CXX object CMakeFiles/plycpp_example.dir/src/example.cpp.o[0m
+[100%] [32m[1mLinking CXX executable plycpp_example[0m
+[100%] Built target plycpp_example
+-- Install configuration: ""
+-- Installing: /home/Jad/Desktop/plycpp/plycpp_repo/plycpp/install/plycpp/lib/libplycpp.so
+-- Installing: /home/Jad/Desktop/plycpp/plycpp_repo/plycpp/install/plycpp/include
+-- Installing: /home/Jad/Desktop/plycpp/plycpp_repo/plycpp/install/plycpp/include/plycpp.h
+-- Installing: /home/Jad/Desktop/plycpp/plycpp_repo/plycpp/install/plycpp/share/plycpp/environment/library_path.sh
+-- Installing: /home/Jad/Desktop/plycpp/plycpp_repo/plycpp/install/plycpp/share/plycpp/environment/library_path.dsv
+-- Installing: /home/Jad/Desktop/plycpp/plycpp_repo/plycpp/install/plycpp/share/ament_index/resource_index/package_run_dependencies/plycpp
+-- Installing: /home/Jad/Desktop/plycpp/plycpp_repo/plycpp/install/plycpp/share/ament_index/resource_index/parent_prefix_path/plycpp
+-- Installing: /home/Jad/Desktop/plycpp/plycpp_repo/plycpp/install/plycpp/share/plycpp/environment/ament_prefix_path.sh
+-- Installing: /home/Jad/Desktop/plycpp/plycpp_repo/plycpp/install/plycpp/share/plycpp/environment/ament_prefix_path.dsv
+-- Installing: /home/Jad/Desktop/plycpp/plycpp_repo/plycpp/install/plycpp/share/plycpp/environment/path.sh
+-- Installing: /home/Jad/Desktop/plycpp/plycpp_repo/plycpp/install/plycpp/share/plycpp/environment/path.dsv
+-- Installing: /home/Jad/Desktop/plycpp/plycpp_repo/plycpp/install/plycpp/share/plycpp/local_setup.bash
+-- Installing: /home/Jad/Desktop/plycpp/plycpp_repo/plycpp/install/plycpp/share/plycpp/local_setup.sh
+-- Installing: /home/Jad/Desktop/plycpp/plycpp_repo/plycpp/install/plycpp/share/plycpp/local_setup.zsh
+-- Installing: /home/Jad/Desktop/plycpp/plycpp_repo/plycpp/install/plycpp/share/plycpp/local_setup.dsv
+-- Installing: /home/Jad/Desktop/plycpp/plycpp_repo/plycpp/install/plycpp/share/plycpp/package.dsv
+-- Installing: /home/Jad/Desktop/plycpp/plycpp_repo/plycpp/install/plycpp/share/ament_index/resource_index/packages/plycpp
+-- Installing: /home/Jad/Desktop/plycpp/plycpp_repo/plycpp/install/plycpp/share/plycpp/cmake/ament_cmake_export_libraries-extras.cmake
+-- Installing: /home/Jad/Desktop/plycpp/plycpp_repo/plycpp/install/plycpp/share/plycpp/cmake/plycppConfig.cmake
+-- Installing: /home/Jad/Desktop/plycpp/plycpp_repo/plycpp/install/plycpp/share/plycpp/cmake/plycppConfig-version.cmake
+-- Installing: /home/Jad/Desktop/plycpp/plycpp_repo/plycpp/install/plycpp/share/plycpp/package.xml

@@ -1,0 +1,22 @@
+In file included from [01m[K/home/Jad/Desktop/plycpp/plycpp_repo/plycpp/src/plycpp/src/plycpp.cpp:23[m[K:
+[01m[K/home/Jad/Desktop/plycpp/plycpp_repo/plycpp/src/plycpp/include/plycpp/plycpp.h:164:3:[m[K [01;35m[Kwarning: [m[Ktype qualifiers ignored on function return type [[01;35m[K-Wignored-qualifiers[m[K]
+  164 |   [01;35m[Kconst[m[K size_t size() const
+      |   [01;35m[K^~~~~[m[K
+[01m[K/home/Jad/Desktop/plycpp/plycpp_repo/plycpp/src/plycpp/include/plycpp/plycpp.h:[m[K In constructor ‘[01m[Kplycpp::PropertyArray::PropertyArray(std::type_index, size_t, bool)[m[K’:
+[01m[K/home/Jad/Desktop/plycpp/plycpp_repo/plycpp/src/plycpp/include/plycpp/plycpp.h:189:14:[m[K [01;35m[Kwarning: [m[K‘[01m[Kplycpp::PropertyArray::isList[m[K’ will be initialized after [[01;35m[K-Wreorder[m[K]
+  189 |   const bool [01;35m[KisList[m[K = false;
+      |              [01;35m[K^~~~~~[m[K
+[01m[K/home/Jad/Desktop/plycpp/plycpp_repo/plycpp/src/plycpp/include/plycpp/plycpp.h:188:22:[m[K [01;35m[Kwarning: [m[K  ‘[01m[Kconst unsigned int plycpp::PropertyArray::stepSize[m[K’ [[01;35m[K-Wreorder[m[K]
+  188 |   const unsigned int [01;35m[KstepSize[m[K;
+      |                      [01;35m[K^~~~~~~~[m[K
+[01m[K/home/Jad/Desktop/plycpp/plycpp_repo/plycpp/src/plycpp/src/plycpp.cpp:132:2:[m[K [01;35m[Kwarning: [m[K  when initialized here [[01;35m[K-Wreorder[m[K]
+  132 |  [01;35m[KPropertyArray[m[K::PropertyArray(const std::type_index type, const size_t size, const bool isList)
+      |  [01;35m[K^~~~~~~~~~~~~[m[K
+In file included from [01m[K/home/Jad/Desktop/plycpp/plycpp_repo/plycpp/src/plycpp/src/example.cpp:24[m[K:
+[01m[K/home/Jad/Desktop/plycpp/plycpp_repo/plycpp/src/plycpp/include/plycpp/plycpp.h:164:3:[m[K [01;35m[Kwarning: [m[Ktype qualifiers ignored on function return type [[01;35m[K-Wignored-qualifiers[m[K]
+  164 |   [01;35m[Kconst[m[K size_t size() const
+      |   [01;35m[K^~~~~[m[K
+[01m[K/home/Jad/Desktop/plycpp/plycpp_repo/plycpp/src/plycpp/src/example.cpp:[m[K In function ‘[01m[Kint main()[m[K’:
+[01m[K/home/Jad/Desktop/plycpp/plycpp_repo/plycpp/src/plycpp/src/example.cpp:145:23:[m[K [01;35m[Kwarning: [m[Kcatching polymorphic type ‘[01m[Kconst class plycpp::Exception[m[K’ by value [[01;35m[K-Wcatch-value=[m[K]
+  145 |   catch(const plycpp::[01;35m[KException[m[K)
+      |                       [01;35m[K^~~~~~~~~[m[K

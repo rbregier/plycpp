@@ -21,13 +21,13 @@
 // SOFTWARE.
 
 //#include <vld.h>
-#include <plycpp.h>
+#include "plycpp/plycpp.h"
 #include <filesystem>
 #include <iostream>
 #include <array>
 
 
-void main()
+int main()
 {
 
 	try
@@ -174,4 +174,5 @@ void main()
 
 	std::cout << "Enter a char to exit..." << std::endl;
 	std::getchar();
+	return 0;
 }

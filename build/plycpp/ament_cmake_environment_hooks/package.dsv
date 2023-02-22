@@ -1,0 +1,4 @@
+source;share/plycpp/local_setup.bash
+source;share/plycpp/local_setup.dsv
+source;share/plycpp/local_setup.sh
+source;share/plycpp/local_setup.zsh

@@ -1,0 +1,1 @@
+/usr/bin/c++     CMakeFiles/plycpp_example.dir/src/example.cpp.o  -o plycpp_example  -Wl,-rpath,/home/Jad/Desktop/plycpp/plycpp_repo/plycpp/build/plycpp libplycpp.so 

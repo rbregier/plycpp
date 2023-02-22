@@ -49,9 +49,13 @@ namespace plycpp
 
 	class Exception : public std::exception
 	{
+	protected:
+		/** Error message.
+     */
+		std::string exception_;
 	public:
 		Exception(const std::string& msg)
-			: exception(msg.c_str())
+			: exception_(msg.c_str())
 		{}
 	};
 

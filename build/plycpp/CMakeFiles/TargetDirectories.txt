@@ -1,0 +1,11 @@
+/home/Jad/Desktop/plycpp/plycpp_repo/plycpp/build/plycpp/CMakeFiles/install/strip.dir
+/home/Jad/Desktop/plycpp/plycpp_repo/plycpp/build/plycpp/CMakeFiles/edit_cache.dir
+/home/Jad/Desktop/plycpp/plycpp_repo/plycpp/build/plycpp/CMakeFiles/test.dir
+/home/Jad/Desktop/plycpp/plycpp_repo/plycpp/build/plycpp/CMakeFiles/install.dir
+/home/Jad/Desktop/plycpp/plycpp_repo/plycpp/build/plycpp/CMakeFiles/list_install_components.dir
+/home/Jad/Desktop/plycpp/plycpp_repo/plycpp/build/plycpp/CMakeFiles/rebuild_cache.dir
+/home/Jad/Desktop/plycpp/plycpp_repo/plycpp/build/plycpp/CMakeFiles/plycpp_example.dir
+/home/Jad/Desktop/plycpp/plycpp_repo/plycpp/build/plycpp/CMakeFiles/install/local.dir
+/home/Jad/Desktop/plycpp/plycpp_repo/plycpp/build/plycpp/CMakeFiles/plycpp.dir
+/home/Jad/Desktop/plycpp/plycpp_repo/plycpp/build/plycpp/CMakeFiles/plycpp_uninstall.dir
+/home/Jad/Desktop/plycpp/plycpp_repo/plycpp/build/plycpp/CMakeFiles/uninstall.dir

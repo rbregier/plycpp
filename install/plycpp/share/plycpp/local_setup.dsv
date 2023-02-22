@@ -1,0 +1,3 @@
+source;share/plycpp/environment/ament_prefix_path.sh
+source;share/plycpp/environment/library_path.sh
+source;share/plycpp/environment/path.sh

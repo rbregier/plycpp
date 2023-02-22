@@ -1,0 +1,32 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/home/Jad/Desktop/plycpp/plycpp_repo/plycpp/src/plycpp/include/plycpp/plycpp.h
+vector
+-
+memory
+-
+string
+-
+cassert
+-
+algorithm
+-
+typeindex
+-
+
+/home/Jad/Desktop/plycpp/plycpp_repo/plycpp/src/plycpp/src/example.cpp
+plycpp/plycpp.h
+/home/Jad/Desktop/plycpp/plycpp_repo/plycpp/src/plycpp/src/plycpp/plycpp.h
+filesystem
+-
+iostream
+-
+array
+-
+

@@ -1,0 +1,89 @@
+[0.015s] Invoking command in '/home/Jad/Desktop/plycpp/plycpp_repo/plycpp/build/plycpp': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/galactic /usr/bin/cmake /home/Jad/Desktop/plycpp/plycpp_repo/plycpp/src/plycpp -DCMAKE_INSTALL_PREFIX=/home/Jad/Desktop/plycpp/plycpp_repo/plycpp/install/plycpp
+[0.086s] -- The C compiler identification is GNU 9.4.0
+[0.138s] -- The CXX compiler identification is GNU 9.4.0
+[0.144s] -- Check for working C compiler: /usr/bin/cc
+[0.213s] -- Check for working C compiler: /usr/bin/cc -- works
+[0.214s] -- Detecting C compiler ABI info
+[0.287s] -- Detecting C compiler ABI info - done
+[0.299s] -- Detecting C compile features
+[0.299s] -- Detecting C compile features - done
+[0.301s] -- Check for working CXX compiler: /usr/bin/c++
+[0.373s] -- Check for working CXX compiler: /usr/bin/c++ -- works
+[0.375s] -- Detecting CXX compiler ABI info
+[0.458s] -- Detecting CXX compiler ABI info - done
+[0.470s] -- Detecting CXX compile features
+[0.471s] -- Detecting CXX compile features - done
+[0.475s] -- Found ament_cmake: 1.1.6 (/opt/ros/galactic/share/ament_cmake/cmake)
+[0.495s] -- Found PythonInterp: /usr/bin/python3 (found suitable version "3.8.10", minimum required is "3") 
+[0.495s] -- Using PYTHON_EXECUTABLE: /usr/bin/python3
+[0.555s] -- Found ament_lint_auto: 0.10.7 (/opt/ros/galactic/share/ament_lint_auto/cmake)
+[0.606s] -- Added test 'copyright' to check source files copyright and LICENSE
+[0.607s] -- Added test 'cppcheck' to perform static code analysis on C / C++ code
+[0.608s] -- Configured cppcheck include dirs: /home/Jad/Desktop/plycpp/plycpp_repo/plycpp/src/plycpp/PUBLIC;$<BUILD_INTERFACE:/home/Jad/Desktop/plycpp/plycpp_repo/plycpp/src/plycpp/include>;/home/Jad/Desktop/plycpp/plycpp_repo/plycpp/src/plycpp/include
+[0.608s] -- Configured cppcheck exclude dirs and/or files: 
+[0.609s] -- Added test 'cpplint' to check C / C++ code against the Google style
+[0.609s] -- Configured cpplint exclude dirs and/or files: 
+[0.609s] -- Added test 'lint_cmake' to check CMake code style
+[0.610s] -- Added test 'uncrustify' to check C / C++ code style
+[0.610s] -- Configured uncrustify additional arguments: 
+[0.610s] -- Added test 'xmllint' to check XML markup files
+[0.613s] -- Configuring done
+[0.621s] -- Generating done
+[0.622s] -- Build files have been written to: /home/Jad/Desktop/plycpp/plycpp_repo/plycpp/build/plycpp
+[0.626s] Invoked command in '/home/Jad/Desktop/plycpp/plycpp_repo/plycpp/build/plycpp' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/galactic /usr/bin/cmake /home/Jad/Desktop/plycpp/plycpp_repo/plycpp/src/plycpp -DCMAKE_INSTALL_PREFIX=/home/Jad/Desktop/plycpp/plycpp_repo/plycpp/install/plycpp
+[0.628s] Invoking command in '/home/Jad/Desktop/plycpp/plycpp_repo/plycpp/build/plycpp': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/galactic /usr/bin/cmake --build /home/Jad/Desktop/plycpp/plycpp_repo/plycpp/build/plycpp -- -j16 -l16
+[0.668s] [35m[1mScanning dependencies of target plycpp[0m
+[0.681s] [ 25%] [32mBuilding CXX object CMakeFiles/plycpp.dir/src/plycpp.cpp.o[0m
+[0.856s] In file included from [01m[K/home/Jad/Desktop/plycpp/plycpp_repo/plycpp/src/plycpp/src/plycpp.cpp:23[m[K:
+[0.856s] [01m[K/home/Jad/Desktop/plycpp/plycpp_repo/plycpp/src/plycpp/include/plycpp/plycpp.h:164:3:[m[K [01;35m[Kwarning: [m[Ktype qualifiers ignored on function return type [[01;35m[K-Wignored-qualifiers[m[K]
+[0.856s]   164 |   [01;35m[Kconst[m[K size_t size() const
+[0.856s]       |   [01;35m[K^~~~~[m[K
+[0.994s] [01m[K/home/Jad/Desktop/plycpp/plycpp_repo/plycpp/src/plycpp/include/plycpp/plycpp.h:[m[K In constructor ‘[01m[Kplycpp::PropertyArray::PropertyArray(std::type_index, size_t, bool)[m[K’:
+[0.994s] [01m[K/home/Jad/Desktop/plycpp/plycpp_repo/plycpp/src/plycpp/include/plycpp/plycpp.h:189:14:[m[K [01;35m[Kwarning: [m[K‘[01m[Kplycpp::PropertyArray::isList[m[K’ will be initialized after [[01;35m[K-Wreorder[m[K]
+[0.994s]   189 |   const bool [01;35m[KisList[m[K = false;
+[0.994s]       |              [01;35m[K^~~~~~[m[K
+[0.994s] [01m[K/home/Jad/Desktop/plycpp/plycpp_repo/plycpp/src/plycpp/include/plycpp/plycpp.h:188:22:[m[K [01;35m[Kwarning: [m[K  ‘[01m[Kconst unsigned int plycpp::PropertyArray::stepSize[m[K’ [[01;35m[K-Wreorder[m[K]
+[0.994s]   188 |   const unsigned int [01;35m[KstepSize[m[K;
+[0.994s]       |                      [01;35m[K^~~~~~~~[m[K
+[0.994s] [01m[K/home/Jad/Desktop/plycpp/plycpp_repo/plycpp/src/plycpp/src/plycpp.cpp:132:2:[m[K [01;35m[Kwarning: [m[K  when initialized here [[01;35m[K-Wreorder[m[K]
+[0.994s]   132 |  [01;35m[KPropertyArray[m[K::PropertyArray(const std::type_index type, const size_t size, const bool isList)
+[0.994s]       |  [01;35m[K^~~~~~~~~~~~~[m[K
+[1.507s] [ 50%] [32m[1mLinking CXX shared library libplycpp.so[0m
+[1.579s] [ 50%] Built target plycpp
+[1.590s] [35m[1mScanning dependencies of target plycpp_example[0m
+[1.602s] [ 75%] [32mBuilding CXX object CMakeFiles/plycpp_example.dir/src/example.cpp.o[0m
+[1.766s] In file included from [01m[K/home/Jad/Desktop/plycpp/plycpp_repo/plycpp/src/plycpp/src/example.cpp:24[m[K:
+[1.766s] [01m[K/home/Jad/Desktop/plycpp/plycpp_repo/plycpp/src/plycpp/include/plycpp/plycpp.h:164:3:[m[K [01;35m[Kwarning: [m[Ktype qualifiers ignored on function return type [[01;35m[K-Wignored-qualifiers[m[K]
+[1.766s]   164 |   [01;35m[Kconst[m[K size_t size() const
+[1.766s]       |   [01;35m[K^~~~~[m[K
+[1.841s] [01m[K/home/Jad/Desktop/plycpp/plycpp_repo/plycpp/src/plycpp/src/example.cpp:[m[K In function ‘[01m[Kint main()[m[K’:
+[1.841s] [01m[K/home/Jad/Desktop/plycpp/plycpp_repo/plycpp/src/plycpp/src/example.cpp:145:23:[m[K [01;35m[Kwarning: [m[Kcatching polymorphic type ‘[01m[Kconst class plycpp::Exception[m[K’ by value [[01;35m[K-Wcatch-value=[m[K]
+[1.841s]   145 |   catch(const plycpp::[01;35m[KException[m[K)
+[1.841s]       |                       [01;35m[K^~~~~~~~~[m[K
+[2.276s] [100%] [32m[1mLinking CXX executable plycpp_example[0m
+[2.349s] [100%] Built target plycpp_example
+[2.358s] Invoked command in '/home/Jad/Desktop/plycpp/plycpp_repo/plycpp/build/plycpp' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/galactic /usr/bin/cmake --build /home/Jad/Desktop/plycpp/plycpp_repo/plycpp/build/plycpp -- -j16 -l16
+[2.408s] Invoking command in '/home/Jad/Desktop/plycpp/plycpp_repo/plycpp/build/plycpp': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/galactic /usr/bin/cmake --install /home/Jad/Desktop/plycpp/plycpp_repo/plycpp/build/plycpp
+[2.415s] -- Install configuration: ""
+[2.416s] -- Installing: /home/Jad/Desktop/plycpp/plycpp_repo/plycpp/install/plycpp/lib/libplycpp.so
+[2.416s] -- Installing: /home/Jad/Desktop/plycpp/plycpp_repo/plycpp/install/plycpp/include
+[2.416s] -- Installing: /home/Jad/Desktop/plycpp/plycpp_repo/plycpp/install/plycpp/include/plycpp.h
+[2.417s] -- Installing: /home/Jad/Desktop/plycpp/plycpp_repo/plycpp/install/plycpp/share/plycpp/environment/library_path.sh
+[2.417s] -- Installing: /home/Jad/Desktop/plycpp/plycpp_repo/plycpp/install/plycpp/share/plycpp/environment/library_path.dsv
+[2.417s] -- Installing: /home/Jad/Desktop/plycpp/plycpp_repo/plycpp/install/plycpp/share/ament_index/resource_index/package_run_dependencies/plycpp
+[2.418s] -- Installing: /home/Jad/Desktop/plycpp/plycpp_repo/plycpp/install/plycpp/share/ament_index/resource_index/parent_prefix_path/plycpp
+[2.418s] -- Installing: /home/Jad/Desktop/plycpp/plycpp_repo/plycpp/install/plycpp/share/plycpp/environment/ament_prefix_path.sh
+[2.418s] -- Installing: /home/Jad/Desktop/plycpp/plycpp_repo/plycpp/install/plycpp/share/plycpp/environment/ament_prefix_path.dsv
+[2.418s] -- Installing: /home/Jad/Desktop/plycpp/plycpp_repo/plycpp/install/plycpp/share/plycpp/environment/path.sh
+[2.418s] -- Installing: /home/Jad/Desktop/plycpp/plycpp_repo/plycpp/install/plycpp/share/plycpp/environment/path.dsv
+[2.418s] -- Installing: /home/Jad/Desktop/plycpp/plycpp_repo/plycpp/install/plycpp/share/plycpp/local_setup.bash
+[2.418s] -- Installing: /home/Jad/Desktop/plycpp/plycpp_repo/plycpp/install/plycpp/share/plycpp/local_setup.sh
+[2.419s] -- Installing: /home/Jad/Desktop/plycpp/plycpp_repo/plycpp/install/plycpp/share/plycpp/local_setup.zsh
+[2.419s] -- Installing: /home/Jad/Desktop/plycpp/plycpp_repo/plycpp/install/plycpp/share/plycpp/local_setup.dsv
+[2.419s] -- Installing: /home/Jad/Desktop/plycpp/plycpp_repo/plycpp/install/plycpp/share/plycpp/package.dsv
+[2.419s] -- Installing: /home/Jad/Desktop/plycpp/plycpp_repo/plycpp/install/plycpp/share/ament_index/resource_index/packages/plycpp
+[2.419s] -- Installing: /home/Jad/Desktop/plycpp/plycpp_repo/plycpp/install/plycpp/share/plycpp/cmake/ament_cmake_export_libraries-extras.cmake
+[2.419s] -- Installing: /home/Jad/Desktop/plycpp/plycpp_repo/plycpp/install/plycpp/share/plycpp/cmake/plycppConfig.cmake
+[2.419s] -- Installing: /home/Jad/Desktop/plycpp/plycpp_repo/plycpp/install/plycpp/share/plycpp/cmake/plycppConfig-version.cmake
+[2.419s] -- Installing: /home/Jad/Desktop/plycpp/plycpp_repo/plycpp/install/plycpp/share/plycpp/package.xml
+[2.422s] Invoked command in '/home/Jad/Desktop/plycpp/plycpp_repo/plycpp/build/plycpp' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/galactic /usr/bin/cmake --install /home/Jad/Desktop/plycpp/plycpp_repo/plycpp/build/plycpp

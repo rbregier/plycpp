@@ -1,0 +1,165 @@
+[0.117s] DEBUG:colcon:Command line arguments: ['/usr/bin/colcon', 'build']
+[0.117s] DEBUG:colcon:Parsed command line arguments: Namespace(allow_overriding=[], ament_cmake_args=None, base_paths=['.'], build_base='build', catkin_cmake_args=None, catkin_skip_building_tests=False, cmake_args=None, cmake_clean_cache=False, cmake_clean_first=False, cmake_force_configure=False, cmake_target=None, cmake_target_skip_unavailable=False, continue_on_error=False, event_handlers=None, executor='parallel', ignore_user_meta=False, install_base='install', log_base=None, log_level=None, main=<bound method BuildVerb.main of <colcon_core.verb.build.BuildVerb object at 0x7fe7fd875130>>, merge_install=False, metas=['./colcon.meta'], packages_above=None, packages_above_and_dependencies=None, packages_above_depth=None, packages_end=None, packages_ignore=None, packages_ignore_regex=None, packages_select=None, packages_select_build_failed=False, packages_select_by_dep=None, packages_select_regex=None, packages_select_test_failures=False, packages_skip=None, packages_skip_build_finished=False, packages_skip_by_dep=None, packages_skip_regex=None, packages_skip_test_passed=False, packages_skip_up_to=None, packages_start=None, packages_up_to=None, packages_up_to_regex=None, parallel_workers=16, paths=None, symlink_install=False, test_result_base=None, verb_extension=<colcon_core.verb.build.BuildVerb object at 0x7fe7fd875130>, verb_name='build', verb_parser=<colcon_defaults.argument_parser.defaults.DefaultArgumentsDecorator object at 0x7fe7fd875670>)
+[0.134s] Level 1:colcon.colcon_core.package_discovery:discover_packages(colcon_meta) check parameters
+[0.134s] Level 1:colcon.colcon_core.package_discovery:discover_packages(recursive) check parameters
+[0.134s] Level 1:colcon.colcon_core.package_discovery:discover_packages(ignore) check parameters
+[0.134s] Level 1:colcon.colcon_core.package_discovery:discover_packages(path) check parameters
+[0.134s] Level 1:colcon.colcon_core.package_discovery:discover_packages(colcon_meta) discover
+[0.134s] Level 1:colcon.colcon_core.package_discovery:discover_packages(recursive) discover
+[0.134s] INFO:colcon.colcon_core.package_discovery:Crawling recursively for packages in '/home/Jad/Desktop/plycpp/plycpp_repo/plycpp'
+[0.134s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extensions ['ignore', 'ignore_ament_install']
+[0.134s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extension 'ignore'
+[0.134s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extension 'ignore_ament_install'
+[0.134s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extensions ['colcon_pkg']
+[0.134s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extension 'colcon_pkg'
+[0.134s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extensions ['colcon_meta']
+[0.134s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extension 'colcon_meta'
+[0.134s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extensions ['ros']
+[0.134s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extension 'ros'
+[0.142s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extensions ['cmake', 'python']
+[0.142s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extension 'cmake'
+[0.142s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extension 'python'
+[0.142s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extensions ['python_setup_py']
+[0.142s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extension 'python_setup_py'
+[0.142s] Level 1:colcon.colcon_core.package_identification:_identify(build) by extensions ['ignore', 'ignore_ament_install']
+[0.142s] Level 1:colcon.colcon_core.package_identification:_identify(build) by extension 'ignore'
+[0.142s] Level 1:colcon.colcon_core.package_identification:_identify(build) ignored
+[0.142s] Level 1:colcon.colcon_core.package_identification:_identify(install) by extensions ['ignore', 'ignore_ament_install']
+[0.143s] Level 1:colcon.colcon_core.package_identification:_identify(install) by extension 'ignore'
+[0.143s] Level 1:colcon.colcon_core.package_identification:_identify(install) ignored
+[0.143s] Level 1:colcon.colcon_core.package_identification:_identify(log) by extensions ['ignore', 'ignore_ament_install']
+[0.143s] Level 1:colcon.colcon_core.package_identification:_identify(log) by extension 'ignore'
+[0.143s] Level 1:colcon.colcon_core.package_identification:_identify(log) ignored
+[0.143s] Level 1:colcon.colcon_core.package_identification:_identify(src) by extensions ['ignore', 'ignore_ament_install']
+[0.143s] Level 1:colcon.colcon_core.package_identification:_identify(src) by extension 'ignore'
+[0.143s] Level 1:colcon.colcon_core.package_identification:_identify(src) by extension 'ignore_ament_install'
+[0.143s] Level 1:colcon.colcon_core.package_identification:_identify(src) by extensions ['colcon_pkg']
+[0.143s] Level 1:colcon.colcon_core.package_identification:_identify(src) by extension 'colcon_pkg'
+[0.143s] Level 1:colcon.colcon_core.package_identification:_identify(src) by extensions ['colcon_meta']
+[0.143s] Level 1:colcon.colcon_core.package_identification:_identify(src) by extension 'colcon_meta'
+[0.143s] Level 1:colcon.colcon_core.package_identification:_identify(src) by extensions ['ros']
+[0.143s] Level 1:colcon.colcon_core.package_identification:_identify(src) by extension 'ros'
+[0.143s] Level 1:colcon.colcon_core.package_identification:_identify(src) by extensions ['cmake', 'python']
+[0.143s] Level 1:colcon.colcon_core.package_identification:_identify(src) by extension 'cmake'
+[0.143s] Level 1:colcon.colcon_core.package_identification:_identify(src) by extension 'python'
+[0.143s] Level 1:colcon.colcon_core.package_identification:_identify(src) by extensions ['python_setup_py']
+[0.143s] Level 1:colcon.colcon_core.package_identification:_identify(src) by extension 'python_setup_py'
+[0.143s] Level 1:colcon.colcon_core.package_identification:_identify(src/models) by extensions ['ignore', 'ignore_ament_install']
+[0.143s] Level 1:colcon.colcon_core.package_identification:_identify(src/models) by extension 'ignore'
+[0.143s] Level 1:colcon.colcon_core.package_identification:_identify(src/models) by extension 'ignore_ament_install'
+[0.143s] Level 1:colcon.colcon_core.package_identification:_identify(src/models) by extensions ['colcon_pkg']
+[0.143s] Level 1:colcon.colcon_core.package_identification:_identify(src/models) by extension 'colcon_pkg'
+[0.143s] Level 1:colcon.colcon_core.package_identification:_identify(src/models) by extensions ['colcon_meta']
+[0.143s] Level 1:colcon.colcon_core.package_identification:_identify(src/models) by extension 'colcon_meta'
+[0.143s] Level 1:colcon.colcon_core.package_identification:_identify(src/models) by extensions ['ros']
+[0.143s] Level 1:colcon.colcon_core.package_identification:_identify(src/models) by extension 'ros'
+[0.144s] Level 1:colcon.colcon_core.package_identification:_identify(src/models) by extensions ['cmake', 'python']
+[0.144s] Level 1:colcon.colcon_core.package_identification:_identify(src/models) by extension 'cmake'
+[0.144s] Level 1:colcon.colcon_core.package_identification:_identify(src/models) by extension 'python'
+[0.144s] Level 1:colcon.colcon_core.package_identification:_identify(src/models) by extensions ['python_setup_py']
+[0.144s] Level 1:colcon.colcon_core.package_identification:_identify(src/models) by extension 'python_setup_py'
+[0.144s] Level 1:colcon.colcon_core.package_identification:_identify(src/plycpp) by extensions ['ignore', 'ignore_ament_install']
+[0.144s] Level 1:colcon.colcon_core.package_identification:_identify(src/plycpp) by extension 'ignore'
+[0.144s] Level 1:colcon.colcon_core.package_identification:_identify(src/plycpp) by extension 'ignore_ament_install'
+[0.144s] Level 1:colcon.colcon_core.package_identification:_identify(src/plycpp) by extensions ['colcon_pkg']
+[0.144s] Level 1:colcon.colcon_core.package_identification:_identify(src/plycpp) by extension 'colcon_pkg'
+[0.144s] Level 1:colcon.colcon_core.package_identification:_identify(src/plycpp) by extensions ['colcon_meta']
+[0.144s] Level 1:colcon.colcon_core.package_identification:_identify(src/plycpp) by extension 'colcon_meta'
+[0.144s] Level 1:colcon.colcon_core.package_identification:_identify(src/plycpp) by extensions ['ros']
+[0.144s] Level 1:colcon.colcon_core.package_identification:_identify(src/plycpp) by extension 'ros'
+[0.153s] DEBUG:colcon.colcon_core.package_identification:Package 'src/plycpp' with type 'ros.ament_cmake' and name 'plycpp'
+[0.153s] Level 1:colcon.colcon_core.package_discovery:discover_packages(recursive) using defaults
+[0.154s] Level 1:colcon.colcon_core.package_discovery:discover_packages(ignore) discover
+[0.154s] Level 1:colcon.colcon_core.package_discovery:discover_packages(ignore) using defaults
+[0.154s] Level 1:colcon.colcon_core.package_discovery:discover_packages(path) discover
+[0.154s] Level 1:colcon.colcon_core.package_discovery:discover_packages(path) using defaults
+[0.168s] Level 1:colcon.colcon_core.package_discovery:discover_packages(prefix_path) check parameters
+[0.168s] Level 1:colcon.colcon_core.package_discovery:discover_packages(prefix_path) discover
+[0.170s] DEBUG:colcon.colcon_installed_package_information.package_discovery:Found 2 installed packages in /opt/iw/ros/install
+[0.171s] DEBUG:colcon.colcon_installed_package_information.package_discovery:Found 279 installed packages in /opt/ros/galactic
+[0.173s] Level 1:colcon.colcon_core.package_discovery:discover_packages(prefix_path) using defaults
+[0.228s] Level 5:colcon.colcon_core.verb:set package 'plycpp' build argument 'cmake_args' from command line to 'None'
+[0.228s] Level 5:colcon.colcon_core.verb:set package 'plycpp' build argument 'cmake_target' from command line to 'None'
+[0.228s] Level 5:colcon.colcon_core.verb:set package 'plycpp' build argument 'cmake_target_skip_unavailable' from command line to 'False'
+[0.228s] Level 5:colcon.colcon_core.verb:set package 'plycpp' build argument 'cmake_clean_cache' from command line to 'False'
+[0.228s] Level 5:colcon.colcon_core.verb:set package 'plycpp' build argument 'cmake_clean_first' from command line to 'False'
+[0.228s] Level 5:colcon.colcon_core.verb:set package 'plycpp' build argument 'cmake_force_configure' from command line to 'False'
+[0.228s] Level 5:colcon.colcon_core.verb:set package 'plycpp' build argument 'ament_cmake_args' from command line to 'None'
+[0.228s] Level 5:colcon.colcon_core.verb:set package 'plycpp' build argument 'catkin_cmake_args' from command line to 'None'
+[0.228s] Level 5:colcon.colcon_core.verb:set package 'plycpp' build argument 'catkin_skip_building_tests' from command line to 'False'
+[0.228s] DEBUG:colcon.colcon_core.verb:Building package 'plycpp' with the following arguments: {'ament_cmake_args': None, 'build_base': '/home/Jad/Desktop/plycpp/plycpp_repo/plycpp/build/plycpp', 'catkin_cmake_args': None, 'catkin_skip_building_tests': False, 'cmake_args': None, 'cmake_clean_cache': False, 'cmake_clean_first': False, 'cmake_force_configure': False, 'cmake_target': None, 'cmake_target_skip_unavailable': False, 'install_base': '/home/Jad/Desktop/plycpp/plycpp_repo/plycpp/install/plycpp', 'merge_install': False, 'path': '/home/Jad/Desktop/plycpp/plycpp_repo/plycpp/src/plycpp', 'symlink_install': False, 'test_result_base': None}
+[0.229s] INFO:colcon.colcon_core.executor:Executing jobs using 'parallel' executor
+[0.232s] DEBUG:colcon.colcon_parallel_executor.executor.parallel:run_until_complete
+[0.232s] INFO:colcon.colcon_ros.task.ament_cmake.build:Building ROS package in '/home/Jad/Desktop/plycpp/plycpp_repo/plycpp/src/plycpp' with build type 'ament_cmake'
+[0.232s] INFO:colcon.colcon_cmake.task.cmake.build:Building CMake package in '/home/Jad/Desktop/plycpp/plycpp_repo/plycpp/src/plycpp'
+[0.237s] INFO:colcon.colcon_core.plugin_system:Skipping extension 'colcon_core.shell.bat': Not used on non-Windows systems
+[0.237s] INFO:colcon.colcon_core.shell:Skip shell extension 'powershell' for command environment: Not usable outside of PowerShell
+[0.237s] DEBUG:colcon.colcon_core.shell:Skip shell extension 'dsv' for command environment
+[0.248s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoking command in '/home/Jad/Desktop/plycpp/plycpp_repo/plycpp/build/plycpp': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/galactic /usr/bin/cmake /home/Jad/Desktop/plycpp/plycpp_repo/plycpp/src/plycpp -DCMAKE_INSTALL_PREFIX=/home/Jad/Desktop/plycpp/plycpp_repo/plycpp/install/plycpp
+[0.859s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoked command in '/home/Jad/Desktop/plycpp/plycpp_repo/plycpp/build/plycpp' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/galactic /usr/bin/cmake /home/Jad/Desktop/plycpp/plycpp_repo/plycpp/src/plycpp -DCMAKE_INSTALL_PREFIX=/home/Jad/Desktop/plycpp/plycpp_repo/plycpp/install/plycpp
+[0.860s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoking command in '/home/Jad/Desktop/plycpp/plycpp_repo/plycpp/build/plycpp': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/galactic /usr/bin/cmake --build /home/Jad/Desktop/plycpp/plycpp_repo/plycpp/build/plycpp -- -j16 -l16
+[2.591s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoked command in '/home/Jad/Desktop/plycpp/plycpp_repo/plycpp/build/plycpp' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/galactic /usr/bin/cmake --build /home/Jad/Desktop/plycpp/plycpp_repo/plycpp/build/plycpp -- -j16 -l16
+[2.641s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoking command in '/home/Jad/Desktop/plycpp/plycpp_repo/plycpp/build/plycpp': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/galactic /usr/bin/cmake --install /home/Jad/Desktop/plycpp/plycpp_repo/plycpp/build/plycpp
+[2.654s] Level 1:colcon.colcon_core.environment:create_environment_scripts_only(plycpp)
+[2.654s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoked command in '/home/Jad/Desktop/plycpp/plycpp_repo/plycpp/build/plycpp' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/galactic /usr/bin/cmake --install /home/Jad/Desktop/plycpp/plycpp_repo/plycpp/build/plycpp
+[2.660s] Level 1:colcon.colcon_core.environment:checking '/home/Jad/Desktop/plycpp/plycpp_repo/plycpp/install/plycpp' for CMake module files
+[2.660s] Level 1:colcon.colcon_core.environment:checking '/home/Jad/Desktop/plycpp/plycpp_repo/plycpp/install/plycpp' for CMake config files
+[2.660s] Level 1:colcon.colcon_core.shell:create_environment_hook('plycpp', 'cmake_prefix_path')
+[2.663s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/Jad/Desktop/plycpp/plycpp_repo/plycpp/install/plycpp/share/plycpp/hook/cmake_prefix_path.ps1'
+[2.664s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/home/Jad/Desktop/plycpp/plycpp_repo/plycpp/install/plycpp/share/plycpp/hook/cmake_prefix_path.dsv'
+[2.664s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/Jad/Desktop/plycpp/plycpp_repo/plycpp/install/plycpp/share/plycpp/hook/cmake_prefix_path.sh'
+[2.665s] Level 1:colcon.colcon_core.environment:checking '/home/Jad/Desktop/plycpp/plycpp_repo/plycpp/install/plycpp/lib'
+[2.665s] Level 1:colcon.colcon_core.shell:create_environment_hook('plycpp', 'ld_library_path_lib')
+[2.666s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/Jad/Desktop/plycpp/plycpp_repo/plycpp/install/plycpp/share/plycpp/hook/ld_library_path_lib.ps1'
+[2.666s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/home/Jad/Desktop/plycpp/plycpp_repo/plycpp/install/plycpp/share/plycpp/hook/ld_library_path_lib.dsv'
+[2.666s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/Jad/Desktop/plycpp/plycpp_repo/plycpp/install/plycpp/share/plycpp/hook/ld_library_path_lib.sh'
+[2.667s] Level 1:colcon.colcon_core.environment:checking '/home/Jad/Desktop/plycpp/plycpp_repo/plycpp/install/plycpp/bin'
+[2.667s] Level 1:colcon.colcon_core.environment:checking '/home/Jad/Desktop/plycpp/plycpp_repo/plycpp/install/plycpp/lib/pkgconfig/plycpp.pc'
+[2.667s] Level 1:colcon.colcon_core.environment:checking '/home/Jad/Desktop/plycpp/plycpp_repo/plycpp/install/plycpp/lib/python3.8/site-packages'
+[2.667s] Level 1:colcon.colcon_core.environment:checking '/home/Jad/Desktop/plycpp/plycpp_repo/plycpp/install/plycpp/bin'
+[2.668s] INFO:colcon.colcon_core.shell:Creating package script '/home/Jad/Desktop/plycpp/plycpp_repo/plycpp/install/plycpp/share/plycpp/package.ps1'
+[2.669s] INFO:colcon.colcon_core.shell:Creating package descriptor '/home/Jad/Desktop/plycpp/plycpp_repo/plycpp/install/plycpp/share/plycpp/package.dsv'
+[2.669s] INFO:colcon.colcon_core.shell:Creating package script '/home/Jad/Desktop/plycpp/plycpp_repo/plycpp/install/plycpp/share/plycpp/package.sh'
+[2.669s] INFO:colcon.colcon_core.shell:Creating package script '/home/Jad/Desktop/plycpp/plycpp_repo/plycpp/install/plycpp/share/plycpp/package.bash'
+[2.670s] INFO:colcon.colcon_core.shell:Creating package script '/home/Jad/Desktop/plycpp/plycpp_repo/plycpp/install/plycpp/share/plycpp/package.zsh'
+[2.670s] Level 1:colcon.colcon_core.environment:create_file_with_runtime_dependencies(/home/Jad/Desktop/plycpp/plycpp_repo/plycpp/install/plycpp/share/colcon-core/packages/plycpp)
+[2.698s] Level 1:colcon.colcon_core.environment:create_environment_scripts_only(plycpp)
+[2.701s] Level 1:colcon.colcon_core.environment:checking '/home/Jad/Desktop/plycpp/plycpp_repo/plycpp/install/plycpp' for CMake module files
+[2.701s] Level 1:colcon.colcon_core.environment:checking '/home/Jad/Desktop/plycpp/plycpp_repo/plycpp/install/plycpp' for CMake config files
+[2.702s] Level 1:colcon.colcon_core.shell:create_environment_hook('plycpp', 'cmake_prefix_path')
+[2.704s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/Jad/Desktop/plycpp/plycpp_repo/plycpp/install/plycpp/share/plycpp/hook/cmake_prefix_path.ps1'
+[2.704s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/home/Jad/Desktop/plycpp/plycpp_repo/plycpp/install/plycpp/share/plycpp/hook/cmake_prefix_path.dsv'
+[2.704s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/Jad/Desktop/plycpp/plycpp_repo/plycpp/install/plycpp/share/plycpp/hook/cmake_prefix_path.sh'
+[2.705s] Level 1:colcon.colcon_core.environment:checking '/home/Jad/Desktop/plycpp/plycpp_repo/plycpp/install/plycpp/lib'
+[2.705s] Level 1:colcon.colcon_core.shell:create_environment_hook('plycpp', 'ld_library_path_lib')
+[2.706s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/Jad/Desktop/plycpp/plycpp_repo/plycpp/install/plycpp/share/plycpp/hook/ld_library_path_lib.ps1'
+[2.706s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/home/Jad/Desktop/plycpp/plycpp_repo/plycpp/install/plycpp/share/plycpp/hook/ld_library_path_lib.dsv'
+[2.707s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/Jad/Desktop/plycpp/plycpp_repo/plycpp/install/plycpp/share/plycpp/hook/ld_library_path_lib.sh'
+[2.707s] Level 1:colcon.colcon_core.environment:checking '/home/Jad/Desktop/plycpp/plycpp_repo/plycpp/install/plycpp/bin'
+[2.707s] Level 1:colcon.colcon_core.environment:checking '/home/Jad/Desktop/plycpp/plycpp_repo/plycpp/install/plycpp/lib/pkgconfig/plycpp.pc'
+[2.707s] Level 1:colcon.colcon_core.environment:checking '/home/Jad/Desktop/plycpp/plycpp_repo/plycpp/install/plycpp/lib/python3.8/site-packages'
+[2.707s] Level 1:colcon.colcon_core.environment:checking '/home/Jad/Desktop/plycpp/plycpp_repo/plycpp/install/plycpp/bin'
+[2.708s] INFO:colcon.colcon_core.shell:Creating package script '/home/Jad/Desktop/plycpp/plycpp_repo/plycpp/install/plycpp/share/plycpp/package.ps1'
+[2.709s] INFO:colcon.colcon_core.shell:Creating package descriptor '/home/Jad/Desktop/plycpp/plycpp_repo/plycpp/install/plycpp/share/plycpp/package.dsv'
+[2.709s] INFO:colcon.colcon_core.shell:Creating package script '/home/Jad/Desktop/plycpp/plycpp_repo/plycpp/install/plycpp/share/plycpp/package.sh'
+[2.710s] INFO:colcon.colcon_core.shell:Creating package script '/home/Jad/Desktop/plycpp/plycpp_repo/plycpp/install/plycpp/share/plycpp/package.bash'
+[2.710s] INFO:colcon.colcon_core.shell:Creating package script '/home/Jad/Desktop/plycpp/plycpp_repo/plycpp/install/plycpp/share/plycpp/package.zsh'
+[2.710s] Level 1:colcon.colcon_core.environment:create_file_with_runtime_dependencies(/home/Jad/Desktop/plycpp/plycpp_repo/plycpp/install/plycpp/share/colcon-core/packages/plycpp)
+[2.711s] DEBUG:colcon.colcon_parallel_executor.executor.parallel:closing loop
+[2.711s] DEBUG:colcon.colcon_parallel_executor.executor.parallel:loop closed
+[2.711s] DEBUG:colcon.colcon_parallel_executor.executor.parallel:run_until_complete finished with '0'
+[2.711s] DEBUG:colcon.colcon_core.event_reactor:joining thread
+[2.717s] INFO:colcon.colcon_core.plugin_system:Skipping extension 'colcon_notification.desktop_notification.terminal_notifier': Not used on non-Darwin systems
+[2.717s] INFO:colcon.colcon_core.plugin_system:Skipping extension 'colcon_notification.desktop_notification.win32': Not used on non-Windows systems
+[2.717s] INFO:colcon.colcon_notification.desktop_notification:Sending desktop notification using 'notify2'
+[2.730s] DEBUG:colcon.colcon_core.event_reactor:joined thread
+[2.731s] INFO:colcon.colcon_core.shell:Creating prefix script '/home/Jad/Desktop/plycpp/plycpp_repo/plycpp/install/local_setup.ps1'
+[2.732s] INFO:colcon.colcon_core.shell:Creating prefix util module '/home/Jad/Desktop/plycpp/plycpp_repo/plycpp/install/_local_setup_util_ps1.py'
+[2.733s] INFO:colcon.colcon_core.shell:Creating prefix chain script '/home/Jad/Desktop/plycpp/plycpp_repo/plycpp/install/setup.ps1'
+[2.735s] INFO:colcon.colcon_core.shell:Creating prefix script '/home/Jad/Desktop/plycpp/plycpp_repo/plycpp/install/local_setup.sh'
+[2.735s] INFO:colcon.colcon_core.shell:Creating prefix util module '/home/Jad/Desktop/plycpp/plycpp_repo/plycpp/install/_local_setup_util_sh.py'
+[2.736s] INFO:colcon.colcon_core.shell:Creating prefix chain script '/home/Jad/Desktop/plycpp/plycpp_repo/plycpp/install/setup.sh'
+[2.737s] INFO:colcon.colcon_core.shell:Creating prefix script '/home/Jad/Desktop/plycpp/plycpp_repo/plycpp/install/local_setup.bash'
+[2.737s] INFO:colcon.colcon_core.shell:Creating prefix chain script '/home/Jad/Desktop/plycpp/plycpp_repo/plycpp/install/setup.bash'
+[2.738s] INFO:colcon.colcon_core.shell:Creating prefix script '/home/Jad/Desktop/plycpp/plycpp_repo/plycpp/install/local_setup.zsh'
+[2.738s] INFO:colcon.colcon_core.shell:Creating prefix chain script '/home/Jad/Desktop/plycpp/plycpp_repo/plycpp/install/setup.zsh'
